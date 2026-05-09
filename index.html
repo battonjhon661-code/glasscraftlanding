@@ -716,13 +716,25 @@
             background-clip: text;
         }
 
-        /* glass card — liquid glass with 3-D slab thickness */
+        /* glass card — no backdrop-filter, gradient-only glass illusion */
         .cap-card {
             position: relative;
-            backdrop-filter: blur(14px) saturate(140%);
-            -webkit-backdrop-filter: blur(14px) saturate(140%);
-            border: 1px solid rgba(255,255,255,.10);
-            background: rgba(0,0,0,.28);
+            border-top: 1px solid rgba(255,255,255,.22);
+            border-left: 1px solid rgba(255,255,255,.14);
+            border-right: 1px solid rgba(255,255,255,.07);
+            border-bottom: 1px solid rgba(255,255,255,.04);
+            background:
+                linear-gradient(180deg,
+                    rgba(0,0,0,.18) 0%,
+                    rgba(0,0,0,.06) 50%,
+                    transparent 100%
+                ),
+                linear-gradient(155deg,
+                    rgba(110,130,220,.10) 0%,
+                    rgba(80,100,180,.05) 50%,
+                    transparent 100%
+                ),
+                rgba(13,13,18,.96);
             border-radius: 28px;
             padding: 0;
             width: 380px;
@@ -1614,7 +1626,7 @@
 <div class="gl-intro">
     <div style="position:relative;height:100vh;overflow:hidden;background:#ffffff;">
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="assets/main.mp4" type="video/mp4">
+            <source src="https://res.cloudinary.com/deljmywba/video/upload/q_auto,f_auto,w_1280,c_scale/v1778322447/Main_iukszc.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-bottom">
