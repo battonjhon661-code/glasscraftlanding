@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Innovative Solutions</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0f1117;
+    font-family:'Inter',sans-serif;
+    color:#fff;
+}
+
+.solution{
+    padding:72px 0;
+}
+
+.container{
+    width:100%;
+    max-width:1280px;
+    margin:0 auto;
+    padding-left:48px;
+    padding-right:48px;
+}
+
+.head{
+    text-align:center;
+    margin-bottom:38px;
+}
+
+.head h2{
+    font-size:46px;
+    line-height:1.05;
+    font-weight:600;
+    letter-spacing:-1.4px;
+}
+
+.head h2 span{
+    color:#A6FF7B;
+}
+
+.solution__row{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+
+.solution__item{
+    position:relative;
+
+    width:380px;
+    height:520px;
+
+    overflow:hidden;
+
+    border-radius:28px;
+
+    background:#1a1a1a;
+
+    flex-shrink:0;
+}
+
+.solution__item-link{
+    position:absolute;
+    inset:0;
+    z-index:5;
+}
+
+.solution__item-img{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.solution__item::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        180deg,
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0.82) 100%
+    );
+}
+
+.solution__item-icon{
+    position:absolute;
+
+    top:24px;
+    left:24px;
+
+    z-index:2;
+
+    width:64px;
+    height:64px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(10px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.solution__item-content{
+    position:absolute;
+
+    left:24px;
+    right:24px;
+    bottom:24px;
+
+    z-index:2;
+}
+
+.h5{
+    font-size:28px;
+    line-height:1.08;
+    font-weight:600;
+
+    margin-bottom:14px;
+
+    letter-spacing:-0.6px;
+}
+
+.solution__item p{
+    font-size:15px;
+    line-height:1.5;
+
+    color:rgba(255,255,255,0.92);
+
+    margin-bottom:20px;
+}
+
+.btn{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    height:48px;
+
+    padding:0 22px;
+
+    border-radius:999px;
+
+    border:1px solid rgba(255,255,255,0.25);
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(8px);
+
+    color:#fff;
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:500;
+
+    transition:0.3s ease;
+}
+
+.btn:hover{
+    background:#fff;
+    color:#000;
+}
+
+@media (max-width:1200px){
+
+    .solution__row{
+        flex-wrap:wrap;
+    }
+
+    .solution__item{
+        width:100%;
+        max-width:380px;
+    }
+}
+
+@media (max-width:768px){
+
+    .container{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .head h2{
+        font-size:34px;
+    }
+
+    .solution__item{
+        height:500px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<section class="solution">
+
+    <div class="container">
+
+        <div class="head">
+            <h2>
+                <span>Innovative Solutions</span><br>
+                for Digital Transformation
+            </h2>
+        </div>
+
+        <div class="solution__row">
+
+            <!-- CARD 1 -->
+            <div class="solution__item">
+
+                <a
+                    href="https://liquidtechnology.net/data-center-relocation/"
+                    class="solution__item-link"
+                ></a>
+
+                <img
+                    src="https://liquidtechnology.net/wp-content/uploads/2025/08/solution-2.webp"
+                    class="solution__item-img"
+                    alt=""
+                >
+
+                <div class="solution__item-icon">
+                    <img
+                        src="https://liquidtechnology.net/wp-content/uploads/2025/09/solution-icon-2.svg"
+                        width="34"
+                        height="34"
+                        alt=""
+                    >
+                </div>
+
+                <div class="solution__item-content">
+
+                    <div class="h5">
+                        Data Center Relocation
+                    </div>
+
+                    <p>
+                        At Liquid Technology, we can liquidate your excess IT data center
+                        assets during a data center relocation.
+                    </p>
+
+                    <a href="#" class="btn">
+                        View More
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="solution__item">
+
+                <a
+                    href="https://liquidtechnology.net/international-locations/"
+                    class="solution__item-link"
+                ></a>
+
+                <img
+                    src="https://liquidtechnology.net/wp-content/uploads/2025/08/solution-1.webp"
+                    class="solution__item-img"
+                    alt=""
+                >
+
+                <div class="solution__item-icon">
+                    <img
+                        src="https://liquidtechnology.net/wp-content/uploads/2025/09/solution-icon-1.svg"
+                        width="34"
+                        height="34"
+                        alt=""
+                    >
+                </div>
+
+                <div class="solution__item-content">
+
+                    <div class="h5">
+                        International Locations
+                    </div>
+
+                    <p>
+                        Liquid Technology helps businesses sell or dispose
+                        of old IT equipment globally.
+                    </p>
+
+                    <a href="#" class="btn">
+                        View More
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="solution__item">
+
+                <a
+                    href="https://liquidtechnology.my.site.com/s/"
+                    class="solution__item-link"
+                ></a>
+
+                <img
+                    src="https://liquidtechnology.net/wp-content/uploads/2025/08/solution-3.webp"
+                    class="solution__item-img"
+                    alt=""
+                >
+
+                <div class="solution__item-icon">
+                    <img
+                        src="https://liquidtechnology.net/wp-content/uploads/2025/09/solution-icon-3.svg"
+                        width="34"
+                        height="34"
+                        alt=""
+                    >
+                </div>
+
+                <div class="solution__item-content">
+
+                    <div class="h5">
+                        LT Portal
+                    </div>
+
+                    <p>
+                        Centralized platform for tracking IT assets
+                        and monitoring data securely.
+                    </p>
+
+                    <a href="#" class="btn">
+                        View More
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
