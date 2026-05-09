@@ -2018,7 +2018,20 @@
 (function(){
   var grid  = document.getElementById('caps-grid');
   var cards = Array.from(grid.querySelectorAll('.prod-card'));
-  if (window.innerWidth <= 768) return;
+
+  if (window.innerWidth <= 768) {
+    // Mobile accordion: tap to open/close, only one open at a time
+    if (cards.length > 0) cards[0].classList.add('mob-open');
+    cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        var isOpen = card.classList.contains('mob-open');
+        cards.forEach(function(c) { c.classList.remove('mob-open'); });
+        if (!isOpen) card.classList.add('mob-open');
+      });
+    });
+    return;
+  }
+
   var DURATION = 1200;
   var AW = 65, IW = 7;
 
@@ -2985,99 +2998,146 @@ html { overflow-x: hidden; }
 /* ─── ≤ 768px ─── */
 @media (max-width: 768px) {
 
-    /* gl-intro: убираем отрицательные горизонтальные поля */
+    /* gl-intro */
     .gl-intro { margin: 0 !important; border-radius: 0 0 28px 28px !important; }
 
-    /* Планка со статистикой под hero */
-    .gl-stats-bar {
-        width: 88% !important;
-        padding: 14px 16px !important;
-        margin-top: -44px !important;
+    /* Hero video — уменьшаем высоту */
+    .gl-intro > div:first-child {
+        height: 56vh !important;
+        max-height: 460px !important;
+        min-height: 200px !important;
     }
 
-    /* О компании: убираем 3D-карусель, выравниваем текст */
+    /* Планка со статистикой */
+    .gl-stats-bar {
+        width: calc(100% - 32px) !important;
+        padding: 14px 16px !important;
+        margin-top: -36px !important;
+    }
+
+    /* О компании */
     .gl-intro-left {
         flex-direction: column !important;
-        padding: 32px 20px 28px !important;
+        padding: 32px 16px 28px !important;
         gap: 20px !important;
         align-items: flex-start !important;
     }
-    .gl-intro-text {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        align-self: auto !important;
-    }
+    .gl-intro-text { flex: 0 0 100% !important; max-width: 100% !important; align-self: auto !important; }
     .gl-intro-photo { min-height: 220px !important; }
     .gl-intro-right { display: none !important; }
 
-    /* «Безупречный подход» — уменьшаем отступы */
-    .bezuprechny-section { padding: 44px 20px 32px !important; }
-    .bezuprechny-section > h2 { text-align: left !important; }
-    .bezuprechny-section .marquee-wrap { margin: 0 -16px !important; }
+    /* «Безупречный подход» — контент во всю ширину */
+    .bezuprechny-section { padding: 44px 0 32px !important; }
+    .bezuprechny-section > h2 { padding: 0 16px; text-align: left !important; }
+    .bezuprechny-section .marquee-wrap { margin: 0 !important; }
 
-    /* caps-grid (карточки услуг) — оверлейный вид */
-    #caps-grid { margin: 0 !important; }
+    /* caps-grid — аккордеон (тап раскрывает одну карточку) */
+    #caps-grid {
+        flex-direction: column !important;
+        height: auto !important;
+        margin: 0 !important;
+        gap: 0 !important;
+    }
+    #caps-grid .prod-card {
+        width: 100% !important;
+        height: 72px !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        cursor: pointer !important;
+        border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+    }
+    #caps-grid .prod-card.mob-open { height: 370px !important; }
     #caps-grid .prod-img { position: absolute !important; inset: 0 !important; height: 100% !important; }
-    #caps-grid .prod-card { min-height: 200px !important; }
-    #caps-grid .pmetrics { display: none !important; }
+    #caps-grid .prod-badge { opacity: 1 !important; transition: none !important; }
     #caps-grid .prod-center-label { display: none !important; }
-    #caps-grid .prod-body { opacity: 1 !important; }
-    #caps-grid .prod-badge { opacity: 1 !important; }
-    #caps-grid .prod-dim-overlay { opacity: 0 !important; }
+    #caps-grid .prod-dim-overlay { opacity: 0.55 !important; transition: opacity 0.35s ease !important; }
+    #caps-grid .prod-card.mob-open .prod-dim-overlay { opacity: 0.22 !important; }
+    #caps-grid .prod-body {
+        opacity: 0 !important;
+        transition: opacity 0.2s ease !important;
+        position: absolute !important;
+        inset: 0 !important;
+    }
+    #caps-grid .prod-card.mob-open .prod-body { opacity: 1 !important; transition: opacity 0.35s ease 0.15s !important; }
+    #caps-grid .pmetrics { display: none !important; }
 
     /* Flow section */
-    .flow-section { padding: 44px 20px 52px !important; border-radius: 24px !important; }
+    .flow-section { padding: 44px 16px 52px !important; border-radius: 24px !important; }
 
-    /* Capability cards — убираем фиксированные размеры */
-    .cap-card {
-        width: 100% !important;
-        height: auto !important;
-        min-height: 0 !important;
+    /* «Производство, которому доверяют» — горизонтальный свайп */
+    #capabilities .cap-full { padding: 0 !important; overflow: hidden; }
+    .cap-grid {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        padding: 0 16px 20px !important;
+        gap: 12px !important;
+        justify-content: flex-start !important;
+        scrollbar-width: none;
+    }
+    .cap-grid::-webkit-scrollbar { display: none; }
+    /* .cap-grid .cap-card имеет бо́льшую специфичность чем .cap-card ниже */
+    .cap-grid .cap-card {
+        flex: 0 0 82vw !important;
+        width: 82vw !important;
+        height: 400px !important;
+        scroll-snap-align: start;
         opacity: 1 !important;
         transform: none !important;
     }
-    .cap-card .cap-card-body {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        padding: 24px !important;
+    .cap-grid .cap-card .cap-card-body {
+        position: absolute !important;
+        top: 28px !important; left: 24px !important; right: 24px !important; bottom: auto !important;
+        padding: 0 !important;
+    }
+
+    /* Capability cards вне cap-grid (если есть) */
+    .cap-card {
+        opacity: 1 !important;
+        transform: none !important;
     }
 
     /* Products */
     #products { border-radius: 24px !important; }
 
-    /* Testimonials */
-    #testimonials .container { padding: 0 20px !important; }
+    /* Отзывы — горизонтальный свайп */
+    #testimonials .container { padding: 0 !important; overflow: hidden; }
+    #testimonials .container > div:first-child { padding: 0 16px; }
+    .testi-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: 14px !important;
+        scrollbar-width: none;
+        padding: 4px 16px 16px !important;
+        margin-top: 32px !important;
+    }
+    .testi-grid::-webkit-scrollbar { display: none; }
+    .testi-grid .testi-card {
+        flex: 0 0 82vw !important;
+        width: 82vw !important;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
 
     /* FAQ */
-    #faq .container { padding: 0 20px !important; }
+    #faq .container { padding: 0 16px !important; }
     .faq-layout { grid-template-columns: 1fr !important; gap: 40px; }
 
     /* Footer */
-    footer .container { padding: 0 20px !important; }
+    footer .container { padding: 0 16px !important; }
 
-    /* pcard-poster: убираем отрицательные поля */
+    /* pcard-poster */
     .pcard--poster { margin: 0 !important; border-radius: 0 !important; }
 }
 
 /* ─── ≤ 480px ─── */
 @media (max-width: 480px) {
-
-    /* Статбар: 3 колонки у самой границы */
-    .gl-stats-bar {
-        width: 92% !important;
-        margin-top: -32px !important;
-    }
-
-    /* Скрываем разделители в стат-баре на очень маленьких экранах */
     .gl-stats-bar > div[style*="width:1px"] { display: none !important; }
-
-    /* caps-grid: компактнее */
-    #caps-grid .prod-card { min-height: 175px !important; }
-
-    /* Убираем 3D у cap-card безусловно */
     .cap-card { box-shadow: 0 4px 24px rgba(0,0,0,.18) !important; }
 }
 </style>
