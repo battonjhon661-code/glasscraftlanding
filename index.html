@@ -403,11 +403,35 @@
             position: relative; overflow: hidden; border-radius: 16px;
             background: var(--surface); cursor: default; isolation: isolate;
         }
-        .bento-card img {
+        .bento-card > img {
             position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1);
+            object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1), opacity .25s ease;
         }
-        .bento-card:hover img { transform: scale(1.05); }
+        .bento-card:hover > img { transform: scale(1.05); }
+        .bento-thumbs {
+            position: absolute; top: 10px; right: 10px;
+            display: flex; flex-direction: column; gap: 6px;
+            z-index: 3; opacity: 0;
+            transform: translateX(6px);
+            transition: opacity .22s ease, transform .22s ease;
+        }
+        .bento-card:hover .bento-thumbs { opacity: 1; transform: translateX(0); }
+        .bento-thumbs img {
+            width: 54px; height: 54px; object-fit: cover;
+            border-radius: 9px;
+            border: 2px solid rgba(255,255,255,.45);
+            box-shadow: 0 3px 10px rgba(0,0,0,.38);
+            display: block; cursor: pointer;
+            transition: border-color .15s, box-shadow .15s;
+        }
+        .bento-thumbs img:hover { border-color: rgba(255,255,255,.85); }
+        .bento-thumbs img.active {
+            border-color: #fff;
+            box-shadow: 0 0 0 2px rgba(255,255,255,.5), 0 3px 10px rgba(0,0,0,.38);
+        }
+        .bento-thumbs img:nth-child(2) { transition-delay: .06s; }
+        .bento-thumbs img:nth-child(3) { transition-delay: .12s; }
+        .bento-thumbs img:nth-child(4) { transition-delay: .18s; }
         .bento-card::after {
             content: ""; position: absolute; inset: 0;
             background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,.72) 100%);
@@ -1646,18 +1670,16 @@
             </div>
         </div>
     </div>
-    <div class="gl-stats-bar" style="position:relative;z-index:10;margin:-88px auto 0;width:46%;background:#ffffff;border-radius:20px;padding:24px 40px;display:flex;align-items:center;justify-content:space-around;gap:0;box-shadow:0 8px 48px rgba(0,0,0,0.13),0 2px 12px rgba(0,0,0,0.07);">
-        <div style="text-align:center;flex:1;">
+    <div class="gl-stats-bar" style="position:relative;z-index:10;margin:-90px auto 0;width:46%;display:flex;align-items:stretch;gap:16px;">
+        <div style="text-align:center;flex:1;background:rgba(255,255,255,0.68);border-radius:16px;padding:18px 24px;box-shadow:0 8px 48px rgba(0,0,0,0.13),0 2px 12px rgba(0,0,0,0.07);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);">
             <div style="font-size:32px;font-weight:700;color:#0C0C0B;line-height:1;letter-spacing:-1.5px;"><span class="hsi-counter" data-target="15">15</span>+</div>
             <div style="font-size:12px;color:rgba(12,12,11,.45);margin-top:6px;font-weight:400;line-height:1.4;">лет на рынке</div>
         </div>
-        <div style="width:1px;height:44px;background:rgba(12,12,11,.1);flex-shrink:0;"></div>
-        <div style="text-align:center;flex:1;">
+        <div style="text-align:center;flex:1;background:rgba(255,255,255,0.68);border-radius:16px;padding:18px 24px;box-shadow:0 8px 48px rgba(0,0,0,0.13),0 2px 12px rgba(0,0,0,0.07);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);">
             <div style="font-size:32px;font-weight:700;color:#0C0C0B;line-height:1;letter-spacing:-1.5px;"><span class="hsi-counter" data-target="1000">1000</span>+</div>
             <div style="font-size:12px;color:rgba(12,12,11,.45);margin-top:6px;font-weight:400;line-height:1.4;">положительных отзывов</div>
         </div>
-        <div style="width:1px;height:44px;background:rgba(12,12,11,.1);flex-shrink:0;"></div>
-        <div style="text-align:center;flex:1;">
+        <div style="text-align:center;flex:1;background:rgba(255,255,255,0.68);border-radius:16px;padding:18px 24px;box-shadow:0 8px 48px rgba(0,0,0,0.13),0 2px 12px rgba(0,0,0,0.07);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);">
             <div style="font-size:32px;font-weight:700;color:#0C0C0B;line-height:1;letter-spacing:-1.5px;"><span class="hsi-counter" data-target="15000">15000</span>+</div>
             <div style="font-size:12px;color:rgba(12,12,11,.45);margin-top:6px;font-weight:400;line-height:1.4;">заказов выполнено</div>
         </div>
@@ -1671,14 +1693,14 @@
         <div class="gl-intro-right fade-up" style="transition-delay:.18s">
             <div class="gl-scene">
                 <div class="gl-ring" id="gl-ring">
-                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-1"><img src="assets/works/card1.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-2"><img src="assets/works/card2.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.8" data-name="Стекло-3"><img src="assets/works/card1.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-4"><img src="assets/works/card2.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-5"><img src="assets/works/card1.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.8" data-name="Стекло-6"><img src="assets/works/card2.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-7"><img src="assets/works/card1.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-8"><img src="assets/works/card2.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-1"><img src="assets/spin/card1.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-2"><img src="assets/spin/card2.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.8" data-name="Стекло-3"><img src="assets/spin/card3.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-4"><img src="assets/spin/card4.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-5"><img src="assets/spin/card5.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.8" data-name="Стекло-6"><img src="assets/spin/card6.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-7"><img src="assets/spin/card7.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-8"><img src="assets/spin/card8.jpg" alt=""></div>
                 </div>
             </div>
             <div class="gl-carousel-nav">
@@ -1878,7 +1900,7 @@
 
 <style>
 #caps-grid .prod-card { border-radius:0; border:none; box-shadow:none; }
-#caps-grid .product-overlay { background:linear-gradient(to bottom, rgba(0,0,0,.28) 0%, rgba(0,0,0,.88) 100%); }
+#caps-grid .product-overlay { background:linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.88) 100%); }
 #caps-grid { margin: 0 -40px; }
 #caps-grid .prod-body {
     position:absolute; inset:0; padding:26px 22px 26px 24px;
@@ -1888,7 +1910,11 @@
 #caps-grid .prod-body-text { display:flex; flex-direction:column; gap:5px; min-width:0; flex:1; overflow:hidden; }
 #caps-grid .pname { font-size:clamp(14px,1.6vw,22px); font-weight:800; letter-spacing:-.03em; line-height:1.1; color:#fff; margin:0; }
 #caps-grid .pyear { color:rgba(255,255,255,.58); font-size:12px; line-height:1.45; margin:4px 0 0; }
-#caps-grid .pmetrics { flex-direction:column; gap:14px; flex-shrink:0; margin-top:0; padding-bottom:4px; }
+#caps-grid .pmetrics {
+    position:absolute; bottom:26px; right:22px; z-index:7;
+    display:flex; flex-direction:column; gap:14px; padding-bottom:4px;
+    opacity:0.001;
+}
 #caps-grid .pmetric {
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     width:130px; aspect-ratio:1;
@@ -1898,6 +1924,8 @@
     border: 1px solid rgba(255,255,255,.16);
     border-radius: 20px;
     gap:4px; text-align:center;
+    will-change: backdrop-filter;
+    transform: translateZ(0);
 }
 #caps-grid .pm-val { color:#fff !important; font-size:24px; opacity:1 !important; letter-spacing:-.03em; }
 #caps-grid .pm-label { color:rgba(255,255,255,.48); font-size:11px; line-height:1.3; max-width:104px; }
@@ -1905,7 +1933,7 @@
             <div class="prod-grid" id="caps-grid">
                 <div class="prod-card fade-up">
                     <div class="prod-img">
-                        <img src="assets/works/card1.jpg" alt="Серийное производство">
+                        <img src="assets/benefits/1.png" alt="Серийное производство">
                         <div class="product-overlay"></div>
                         <div class="prod-dim-overlay"></div>
                     </div>
@@ -1916,15 +1944,15 @@
                             <h3 class="pname">Работаем с большими объёмами</h3>
                             <p class="pyear">Серийные заказы от 10 до 100+ изделий — с индивидуальной точностью</p>
                         </div>
-                        <div class="pmetrics">
-                            <div class="pmetric"><span class="pm-val">100+</span><span class="pm-label">позиций в одной серии</span></div>
-                            <div class="pmetric"><span class="pm-val">100%</span><span class="pm-label">контроль каждого изделия</span></div>
-                        </div>
+                    </div>
+                    <div class="pmetrics">
+                        <div class="pmetric"><span class="pm-val">100+</span><span class="pm-label">позиций в одной серии</span></div>
+                        <div class="pmetric"><span class="pm-val">100%</span><span class="pm-label">контроль каждого изделия</span></div>
                     </div>
                 </div>
                 <div class="prod-card fade-up">
                     <div class="prod-img">
-                        <img src="assets/works/card2.jpg" alt="Сроки производства">
+                        <img src="assets/benefits/2.png" alt="Сроки производства">
                         <div class="product-overlay"></div>
                         <div class="prod-dim-overlay"></div>
                     </div>
@@ -1935,15 +1963,15 @@
                             <h3 class="pname">Сроки без «плавающих дат»</h3>
                             <p class="pyear">Планируем производство заранее, адаптируемся под графики стройки или установки</p>
                         </div>
-                        <div class="pmetrics">
-                            <div class="pmetric"><span class="pm-val">24 ч</span><span class="pm-label">минимальный срок срочного заказа</span></div>
-                            <div class="pmetric"><span class="pm-val">100%</span><span class="pm-label">исполнение в согласованный срок</span></div>
-                        </div>
+                    </div>
+                    <div class="pmetrics">
+                        <div class="pmetric"><span class="pm-val">24 ч</span><span class="pm-label">минимальный срок срочного заказа</span></div>
+                        <div class="pmetric"><span class="pm-val">100%</span><span class="pm-label">исполнение в согласованный срок</span></div>
                     </div>
                 </div>
                 <div class="prod-card fade-up">
                     <div class="prod-img">
-                        <img src="assets/works/card1.jpg" alt="Фигурный край">
+                        <img src="assets/benefits/3.png" alt="Фигурный край">
                         <div class="product-overlay"></div>
                         <div class="prod-dim-overlay"></div>
                     </div>
@@ -1954,14 +1982,14 @@
                             <h3 class="pname">Фигурный край и шлифовка</h3>
                             <p class="pyear">Фасетная и криволинейная обработка кромок любой сложности</p>
                         </div>
-                        <div class="pmetrics">
-                            <div class="pmetric"><span class="pm-val">1 мм</span><span class="pm-label">точность обработки кромки</span></div>
-                        </div>
+                    </div>
+                    <div class="pmetrics">
+                        <div class="pmetric"><span class="pm-val">1 мм</span><span class="pm-label">точность обработки кромки</span></div>
                     </div>
                 </div>
                 <div class="prod-card fade-up">
                     <div class="prod-img">
-                        <img src="assets/works/card2.jpg" alt="Нанесение покрытий">
+                        <img src="assets/benefits/4.png" alt="Нанесение покрытий">
                         <div class="product-overlay"></div>
                         <div class="prod-dim-overlay"></div>
                     </div>
@@ -1972,14 +2000,14 @@
                             <h3 class="pname">Нанесение покрытий и плёнок</h3>
                             <p class="pyear">Тонировка, бронзирование, матирование и специальные покрытия</p>
                         </div>
-                        <div class="pmetrics">
-                            <div class="pmetric"><span class="pm-val">10+</span><span class="pm-label">видов покрытий и плёнок</span></div>
-                        </div>
+                    </div>
+                    <div class="pmetrics">
+                        <div class="pmetric"><span class="pm-val">10+</span><span class="pm-label">видов покрытий и плёнок</span></div>
                     </div>
                 </div>
                 <div class="prod-card fade-up">
                     <div class="prod-img">
-                        <img src="assets/works/card1.jpg" alt="UV-печать">
+                        <img src="assets/benefits/5.png" alt="UV-печать">
                         <div class="product-overlay"></div>
                         <div class="prod-dim-overlay"></div>
                     </div>
@@ -1990,14 +2018,14 @@
                             <h3 class="pname">UV-печать и декор</h3>
                             <p class="pyear">Авторские рисунки и паттерны на стекле и зеркале</p>
                         </div>
-                        <div class="pmetrics">
-                            <div class="pmetric"><span class="pm-val">0,1 мм</span><span class="pm-label">точность нанесения рисунка</span></div>
-                        </div>
+                    </div>
+                    <div class="pmetrics">
+                        <div class="pmetric"><span class="pm-val">0,1 мм</span><span class="pm-label">точность нанесения рисунка</span></div>
                     </div>
                 </div>
                 <div class="prod-card fade-up">
                     <div class="prod-img">
-                        <img src="assets/works/card2.jpg" alt="Закалка стекла">
+                        <img src="assets/benefits/6.png" alt="Закалка стекла">
                         <div class="product-overlay"></div>
                         <div class="prod-dim-overlay"></div>
                     </div>
@@ -2008,9 +2036,9 @@
                             <h3 class="pname">Закалка и упрочнение</h3>
                             <p class="pyear">Закалённое стекло по ГОСТ — в 5 раз прочнее стандартного</p>
                         </div>
-                        <div class="pmetrics">
-                            <div class="pmetric"><span class="pm-val">×5</span><span class="pm-label">прочнее стандартного стекла</span></div>
-                        </div>
+                    </div>
+                    <div class="pmetrics">
+                        <div class="pmetric"><span class="pm-val">×5</span><span class="pm-label">прочнее стандартного стекла</span></div>
                     </div>
                 </div>
             </div>
@@ -2074,10 +2102,12 @@
       var badge = c.querySelector('.prod-badge');
       var cl    = c.querySelector('.prod-center-label');
       var body  = c.querySelector('.prod-body');
+      var pm    = c.querySelector('.pmetrics');
       if(dim)  { dim.style.transition=TR;              dim.style.opacity   = isAct?'0':'1'; }
       if(badge){ badge.style.transition=TR;             badge.style.opacity = isAct?'1':'0'; }
       if(cl)   { cl.style.transition=TR;               cl.style.opacity    = isAct?'0':'1'; }
       if(body) { body.style.transition=isAct?TR_IN:TR_OUT; body.style.opacity = isAct?'1':'0'; }
+      if(pm)   { pm.style.transition=isAct?TR_IN:TR_OUT;   pm.style.opacity   = isAct?'1':'0.001'; }
     });
   }
 
@@ -2088,10 +2118,12 @@
     var badge = c.querySelector('.prod-badge');
     var cl    = c.querySelector('.prod-center-label');
     var body  = c.querySelector('.prod-body');
+    var pm    = c.querySelector('.pmetrics');
     if(dim)  dim.style.opacity   = isAct?'0':'1';
     if(badge)badge.style.opacity = isAct?'1':'0';
     if(cl)   cl.style.opacity    = isAct?'0':'1';
     if(body) body.style.opacity  = isAct?'1':'0';
+    if(pm)   pm.style.opacity    = isAct?'1':'0.001';
   });
 
   cards.forEach(function(card,i){
@@ -2338,7 +2370,13 @@
         <div class="bento-wrap">
             <div class="bento-grid">
                 <div class="bento-card fade-up" style="grid-column:span 5;grid-row:span 5;transition-delay:0s">
-                    <img src="assets/works/card1.jpg" alt="">
+                    <img src="assets/works/example1/main.jpg" alt="" class="bento-main-img">
+                    <div class="bento-thumbs">
+                        <img src="assets/works/example1/main.jpg" alt="" class="active">
+                        <img src="assets/works/example1/side1.jpg" alt="">
+                        <img src="assets/works/example1/side2.jpg" alt="">
+                        <img src="assets/works/example1/side3.jpg" alt="">
+                    </div>
                     <div class="prod-badge"><span class="prod-badge-dot"></span>Зеркала</div>
                     <div class="bento-info">
                         <h3>Зеркальное панно с фацетом</h3>
@@ -2346,7 +2384,13 @@
                     </div>
                 </div>
                 <div class="bento-card fade-up" style="grid-column:span 4;grid-row:span 3;transition-delay:.08s">
-                    <img src="assets/works/card2.jpg" alt="">
+                    <img src="assets/works/example2/main.jpg" alt="" class="bento-main-img">
+                    <div class="bento-thumbs">
+                        <img src="assets/works/example2/main.jpg" alt="" class="active">
+                        <img src="assets/works/example2/side1.jpg" alt="">
+                        <img src="assets/works/example2/side2.jpg" alt="">
+                        <img src="assets/works/example2/side3.jpg" alt="">
+                    </div>
                     <div class="prod-badge"><span class="prod-badge-dot"></span>Декор</div>
                     <div class="bento-info">
                         <h3>Зеркала с декоративным травлением</h3>
@@ -2354,7 +2398,13 @@
                     </div>
                 </div>
                 <div class="bento-card fade-up" style="grid-column:span 3;grid-row:span 5;transition-delay:.16s">
-                    <img src="assets/works/card1.jpg" alt="">
+                    <img src="assets/works/example3/main.jpg" alt="" class="bento-main-img">
+                    <div class="bento-thumbs">
+                        <img src="assets/works/example3/main.jpg" alt="" class="active">
+                        <img src="assets/works/example3/side1.jpg" alt="">
+                        <img src="assets/works/example3/side2.jpg" alt="">
+                        <img src="assets/works/example3/side3.jpg" alt="">
+                    </div>
                     <div class="prod-badge"><span class="prod-badge-dot"></span>Зеркала</div>
                     <div class="bento-info">
                         <h3>Зеркало во весь рост</h3>
@@ -2362,7 +2412,13 @@
                     </div>
                 </div>
                 <div class="bento-card fade-up" style="grid-column:span 4;grid-row:span 4;transition-delay:.24s">
-                    <img src="assets/works/card2.jpg" alt="">
+                    <img src="assets/works/example4/main.jpg" alt="" class="bento-main-img">
+                    <div class="bento-thumbs">
+                        <img src="assets/works/example4/main.jpg" alt="" class="active">
+                        <img src="assets/works/example4/side1.jpg" alt="">
+                        <img src="assets/works/example4/side2.jpg" alt="">
+                        <img src="assets/works/example4/side3.jpg" alt="">
+                    </div>
                     <div class="prod-badge"><span class="prod-badge-dot"></span>Зеркала</div>
                     <div class="bento-info">
                         <h3>Зеркальный потолок</h3>
@@ -2370,7 +2426,13 @@
                     </div>
                 </div>
                 <div class="bento-card fade-up" style="grid-column:span 5;grid-row:span 4;transition-delay:.32s">
-                    <img src="assets/works/card1.jpg" alt="">
+                    <img src="assets/works/example5/main.jpg" alt="" class="bento-main-img">
+                    <div class="bento-thumbs">
+                        <img src="assets/works/example5/main.jpg" alt="" class="active">
+                        <img src="assets/works/example5/side1.jpg" alt="">
+                        <img src="assets/works/example5/side2.jpg" alt="">
+                        <img src="assets/works/example5/side3.jpg" alt="">
+                    </div>
                     <div class="prod-badge"><span class="prod-badge-dot"></span>Перегородки</div>
                     <div class="bento-info">
                         <h3>Зеркальные перегородки</h3>
@@ -2378,7 +2440,13 @@
                     </div>
                 </div>
                 <div class="bento-card fade-up" style="grid-column:span 3;grid-row:span 3;transition-delay:.40s">
-                    <img src="assets/works/card2.jpg" alt="">
+                    <img src="assets/works/example6/main.jpg" alt="" class="bento-main-img">
+                    <div class="bento-thumbs">
+                        <img src="assets/works/example6/main.jpg" alt="" class="active">
+                        <img src="assets/works/example6/side1.jpg" alt="">
+                        <img src="assets/works/example6/side2.jpg" alt="">
+                        <img src="assets/works/example6/side3.jpg" alt="">
+                    </div>
                     <div class="prod-badge"><span class="prod-badge-dot"></span>Зеркала</div>
                     <div class="bento-info">
                         <h3>Зеркало в профильной раме</h3>
@@ -2386,7 +2454,13 @@
                     </div>
                 </div>
                 <div class="bento-card fade-up" style="grid-column:span 4;grid-row:span 3;transition-delay:.48s">
-                    <img src="assets/works/card1.jpg" alt="">
+                    <img src="assets/works/example7/main.jpg" alt="" class="bento-main-img">
+                    <div class="bento-thumbs">
+                        <img src="assets/works/example7/main.jpg" alt="" class="active">
+                        <img src="assets/works/example7/side1.jpg" alt="">
+                        <img src="assets/works/example7/side2.jpg" alt="">
+                        <img src="assets/works/example7/side3.jpg" alt="">
+                    </div>
                     <div class="prod-badge"><span class="prod-badge-dot"></span>LED-подсветка</div>
                     <div class="bento-info">
                         <h3>Зеркало с LED-подсветкой</h3>
@@ -2759,6 +2833,20 @@
             e.target.reset();
         }, 4000);
     }
+
+    /* bento-thumbs: click to swap card background image */
+    document.querySelectorAll('.bento-card').forEach(card => {
+        const mainImg = card.querySelector('.bento-main-img');
+        if (!mainImg) return;
+        card.querySelectorAll('.bento-thumbs img').forEach(thumb => {
+            thumb.addEventListener('click', e => {
+                e.stopPropagation();
+                mainImg.src = thumb.src;
+                card.querySelectorAll('.bento-thumbs img').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            });
+        });
+    });
 
     /* cap-card: flip-in on scroll + mouse-follow tilt */
     (function () {
