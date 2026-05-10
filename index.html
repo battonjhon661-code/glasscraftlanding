@@ -1577,6 +1577,14 @@
             /* Опускаем бар с точками ниже кольца */
             .gl-carousel-nav { margin-top: 200px !important; }
 
+            /* Заголовок "Зеркала и стекла без ограничений." — одна строка */
+            .gl-intro-title {
+                font-size: clamp(16px, 4.5vw, 20px) !important;
+                letter-spacing: -0.5px !important;
+                white-space: nowrap !important;
+            }
+            .gl-intro-title br { display: none !important; }
+
             /* 4. "Производство, которому доверяют" — горизонтальный свайп + подсветка */
             .cap-full { padding: 0 !important; }
             .cap-grid {
