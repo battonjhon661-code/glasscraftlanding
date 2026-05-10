@@ -1536,6 +1536,113 @@
 
         /* spc cards need pointer-events for hover */
         .spc { pointer-events: auto; }
+
+        /* ══════════════════════════════════════════
+           MOBILE-ONLY FIXES (≤768px)
+           All desktop layouts left untouched
+           ══════════════════════════════════════════ */
+        @media (max-width: 768px) {
+
+            /* 1. Hero badge ("Собственное производство · Москва · Гарантия качества") */
+            .hero-badge { display: none !important; }
+
+            /* 2. "Безупречный подход" — уменьшаем до 2 строк */
+            .p6-headline {
+                font-size: 22px !important;
+                letter-spacing: -0.01em !important;
+            }
+
+            /* 3. Карусель (кольцо) — центрирование, отступы, размер сцены */
+            .gl-intro { overflow-x: hidden; overflow-y: visible; }
+            .gl-intro-left {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 32px !important;
+                padding: 40px 20px 56px !important;
+            }
+            .gl-intro-text {
+                flex: none !important;
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-top: 20px !important;
+                max-width: none !important;
+            }
+            .gl-intro-right {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            .gl-scene { width: 320px; }
+            /* Опускаем бар с точками ниже кольца */
+            .gl-carousel-nav { margin-top: 80px !important; }
+
+            /* 4. "Производство, которому доверяют" — горизонтальный свайп + подсветка */
+            .cap-full { padding: 0 !important; }
+            .cap-grid {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 16px !important;
+                padding: 0 20px 24px !important;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start !important;
+            }
+            .cap-grid::-webkit-scrollbar { display: none; }
+            .cap-card {
+                flex-shrink: 0 !important;
+                width: 80vw !important;
+                max-width: 300px !important;
+                height: auto !important;
+                min-height: 400px !important;
+                scroll-snap-align: center !important;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+                cursor: default !important;
+            }
+            /* Отключаем hover-шиммер */
+            .cap-card::before { display: none !important; }
+            /* Перепрофилируем ::after в фиолетово-синее свечение в правом нижнем углу */
+            .cap-card::after {
+                top: auto !important;
+                left: auto !important;
+                right: -18px !important;
+                bottom: -18px !important;
+                height: 160px !important;
+                width: 160px !important;
+                border-radius: 50% !important;
+                background: radial-gradient(circle at center,
+                    rgba(139,92,246,.72) 0%,
+                    rgba(99,102,241,.42) 38%,
+                    rgba(59,130,246,.22) 68%,
+                    transparent 100%) !important;
+                filter: blur(32px);
+                opacity: 1 !important;
+                z-index: 0 !important;
+            }
+
+            /* 5. "Ни одна хорошая идея" — уменьшаем заголовок до 2 строк */
+            #products .container h2 {
+                font-size: 19px !important;
+                line-height: 1.28 !important;
+                letter-spacing: -0.01em !important;
+            }
+            /* Bento-карточки некликабельны на мобилке */
+            .bento-thumbs { display: none !important; }
+            .bento-card   { cursor: default !important; pointer-events: none !important; }
+            .bento-card > img { transform: none !important; }
+            .bento-card::after { opacity: 0.55 !important; }
+            .bento-info { opacity: 1 !important; transform: translateY(0) !important; }
+        }
+
+        /* Reviews mobile — высота auto для горизонтальных рядов */
+        @media (max-width: 640px) {
+            .reviews-stage { height: auto !important; min-height: 320px; }
+        }
     </style>
 </head>
 <body>
@@ -1732,7 +1839,7 @@
     var curDot = 0;
     var N      = cards.length;
     var STEP   = 360 / N;
-    var Rx     = 210;
+    var Rx     = window.innerWidth <= 768 ? 150 : 210;
     var Rz     = 600;
     var TILT   = -7;
 
@@ -1866,6 +1973,29 @@
             startDotFill(((Math.round(-targetOffset / STEP)) % N + N) % N);
         }, 150);
     }, { passive: false });
+
+    /* Touch swipe for mobile */
+    var touchEl = ring.closest('.gl-intro-right') || introEl;
+    var touchX0 = 0;
+    touchEl.addEventListener('touchstart', function(e) {
+        touchX0 = e.touches[0].clientX;
+    }, { passive: true });
+    touchEl.addEventListener('touchmove', function(e) {
+        var dx = touchX0 - e.touches[0].clientX;
+        if (Math.abs(dx) < 2) return;
+        if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
+        targetOffset -= dx * (STEP / 80);
+        touchX0 = e.touches[0].clientX;
+        startIfNeeded();
+    }, { passive: true });
+    touchEl.addEventListener('touchend', function() {
+        if (snapTimer) clearTimeout(snapTimer);
+        snapTimer = setTimeout(function() {
+            targetOffset = Math.round(targetOffset / STEP) * STEP;
+            startIfNeeded();
+            startDotFill(((Math.round(-targetOffset / STEP)) % N + N) % N);
+        }, 200);
+    }, { passive: true });
 
     /* pause carousel when off-screen to free GPU for other sections */
     var sceneEl = ring.closest('.gl-scene') || ring;
@@ -2762,10 +2892,9 @@
         { name:"Светлана Тихонова", text:"Лёгкое оформление балконной перегородки стеклом с матовым узором. Смотрится стильно, пропускает свет. Спасибо мастерам." },
     ];
 
-    var GAP    = 18;
-    var SPEEDS = [45, 36, 54, 48]; // px/sec
-    var STARTS = [0, 7, 13, 3];   // стартовый индекс отзыва для каждой колонки
-    var stage  = document.getElementById('reviewsStage');
+    var GAP   = 18;
+    var stage = document.getElementById('reviewsStage');
+    var isMobile = window.innerWidth <= 640;
 
     function makeCard(r) {
         var el = document.createElement('div');
@@ -2779,68 +2908,136 @@
         return el;
     }
 
-    for (var ci = 0; ci < 4; ci++) {
-        (function(ci) {
-            var colEl = document.createElement('div');
-            colEl.className = 'reviews-col';
-            stage.appendChild(colEl);
+    if (isMobile) {
+        /* ── Mobile: два горизонтальных авто-скролл ряда ── */
+        stage.style.flexDirection   = 'column';
+        stage.style.height          = 'auto';
+        stage.style.overflowX       = 'hidden';
+        stage.style.overflowY       = 'hidden';
+        stage.style.webkitMaskImage = 'linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%)';
+        stage.style.maskImage       = 'linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%)';
+        stage.style.gap             = '14px';
+        stage.style.padding         = '12px 0';
 
-            var nextIdx = STARTS[ci];
-            var offset  = 0;
-            var lastTime = null;
-            var running  = false;
+        var MOB_SPEEDS = [38, 52];
+        var MOB_STARTS = [0, 10];
+        var MOB_GAP    = 12;
 
-            function next() {
-                var r = REVIEWS[nextIdx % REVIEWS.length];
-                nextIdx++;
-                return r;
-            }
+        for (var ri = 0; ri < 2; ri++) {
+            (function(ri) {
+                var rowEl = document.createElement('div');
+                rowEl.style.cssText = 'display:flex;flex-direction:row;gap:12px;will-change:transform;flex-shrink:0;';
+                stage.appendChild(rowEl);
 
-            // Заполняем колонку начальными карточками
-            for (var i = 0; i < 12; i++) colEl.appendChild(makeCard(next()));
+                var nextIdx  = MOB_STARTS[ri];
+                var offset   = ri * 340;
+                var lastTime = null;
+                var running  = false;
 
-            function tick(now) {
-                if (!running) return;
-                if (lastTime === null) lastTime = now;
-                var dt = Math.min(now - lastTime, 50); // защита от прыжка при скрытом табе
-                lastTime = now;
+                function next() { var r = REVIEWS[nextIdx % REVIEWS.length]; nextIdx++; return r; }
 
-                offset += SPEEDS[ci] * dt / 1000;
-
-                // Когда первая карточка целиком уходит вверх — удаляем её и добавляем новую снизу
-                // Смещаем offset на её высоту, чтобы остальные не прыгнули
-                var first = colEl.firstElementChild;
-                if (first && offset >= first.offsetHeight + GAP) {
-                    offset -= first.offsetHeight + GAP;
-                    colEl.removeChild(first);
-                    colEl.appendChild(makeCard(next()));
+                function makeMobCard(r) {
+                    var el = makeCard(r);
+                    el.style.width     = '240px';
+                    el.style.flexShrink = '0';
+                    return el;
                 }
 
-                colEl.style.transform = 'translateY(-' + offset + 'px)';
-                requestAnimationFrame(tick);
-            }
+                for (var i = 0; i < 14; i++) rowEl.appendChild(makeMobCard(next()));
 
-            // Стартовый сдвиг колонок чтобы они показывали разные части ленты
-            requestAnimationFrame(function() {
-                var shift = ci * 200;
-                offset = shift;
-                var first = colEl.firstElementChild;
-                while (first && offset >= first.offsetHeight + GAP) {
-                    offset -= first.offsetHeight + GAP;
-                    colEl.removeChild(first);
-                    colEl.appendChild(makeCard(next()));
-                    first = colEl.firstElementChild;
+                function tick(now) {
+                    if (!running) return;
+                    if (lastTime === null) lastTime = now;
+                    var dt = Math.min(now - lastTime, 50);
+                    lastTime = now;
+                    offset += MOB_SPEEDS[ri] * dt / 1000;
+
+                    var first = rowEl.firstElementChild;
+                    if (first && offset >= first.offsetWidth + MOB_GAP) {
+                        offset -= first.offsetWidth + MOB_GAP;
+                        rowEl.removeChild(first);
+                        rowEl.appendChild(makeMobCard(next()));
+                    }
+                    rowEl.style.transform = 'translateX(-' + offset + 'px)';
+                    requestAnimationFrame(tick);
                 }
-                colEl.style.transform = 'translateY(-' + offset + 'px)';
-            });
 
-            new IntersectionObserver(function(entries) {
-                var vis = entries[0].isIntersecting;
-                if (vis && !running) { running = true; lastTime = null; requestAnimationFrame(tick); }
-                else if (!vis) { running = false; }
-            }, { threshold: 0.05 }).observe(stage);
+                requestAnimationFrame(function() {
+                    var first = rowEl.firstElementChild;
+                    while (first && offset >= first.offsetWidth + MOB_GAP) {
+                        offset -= first.offsetWidth + MOB_GAP;
+                        rowEl.removeChild(first);
+                        rowEl.appendChild(makeMobCard(next()));
+                        first = rowEl.firstElementChild;
+                    }
+                    rowEl.style.transform = 'translateX(-' + offset + 'px)';
+                });
 
-        })(ci);
+                new IntersectionObserver(function(entries) {
+                    var vis = entries[0].isIntersecting;
+                    if (vis && !running) { running = true; lastTime = null; requestAnimationFrame(tick); }
+                    else if (!vis) { running = false; }
+                }, { threshold: 0.05 }).observe(stage);
+            })(ri);
+        }
+
+    } else {
+        /* ── Desktop: четыре вертикальных авто-скролл колонки ── */
+        var SPEEDS = [45, 36, 54, 48];
+        var STARTS = [0, 7, 13, 3];
+
+        for (var ci = 0; ci < 4; ci++) {
+            (function(ci) {
+                var colEl = document.createElement('div');
+                colEl.className = 'reviews-col';
+                stage.appendChild(colEl);
+
+                var nextIdx  = STARTS[ci];
+                var offset   = 0;
+                var lastTime = null;
+                var running  = false;
+
+                function next() { var r = REVIEWS[nextIdx % REVIEWS.length]; nextIdx++; return r; }
+
+                for (var i = 0; i < 12; i++) colEl.appendChild(makeCard(next()));
+
+                function tick(now) {
+                    if (!running) return;
+                    if (lastTime === null) lastTime = now;
+                    var dt = Math.min(now - lastTime, 50);
+                    lastTime = now;
+                    offset += SPEEDS[ci] * dt / 1000;
+
+                    var first = colEl.firstElementChild;
+                    if (first && offset >= first.offsetHeight + GAP) {
+                        offset -= first.offsetHeight + GAP;
+                        colEl.removeChild(first);
+                        colEl.appendChild(makeCard(next()));
+                    }
+                    colEl.style.transform = 'translateY(-' + offset + 'px)';
+                    requestAnimationFrame(tick);
+                }
+
+                requestAnimationFrame(function() {
+                    var shift = ci * 200;
+                    offset = shift;
+                    var first = colEl.firstElementChild;
+                    while (first && offset >= first.offsetHeight + GAP) {
+                        offset -= first.offsetHeight + GAP;
+                        colEl.removeChild(first);
+                        colEl.appendChild(makeCard(next()));
+                        first = colEl.firstElementChild;
+                    }
+                    colEl.style.transform = 'translateY(-' + offset + 'px)';
+                });
+
+                new IntersectionObserver(function(entries) {
+                    var vis = entries[0].isIntersecting;
+                    if (vis && !running) { running = true; lastTime = null; requestAnimationFrame(tick); }
+                    else if (!vis) { running = false; }
+                }, { threshold: 0.05 }).observe(stage);
+            })(ci);
+        }
     }
 })();
 </script>
