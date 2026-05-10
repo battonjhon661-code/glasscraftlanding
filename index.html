@@ -166,7 +166,7 @@
             flex: 1;
             display: flex;
             list-style: none;
-            gap: 44px;
+            gap: 28px;
             align-items: center;
             justify-content: center;
         }
@@ -177,6 +177,7 @@
             text-decoration: none;
             letter-spacing: .2px;
             transition: color .2s;
+            white-space: nowrap;
         }
         .nav-links a:hover { color: #ffffff; }
 
@@ -295,19 +296,23 @@
         }
 
         .hero-title {
-            font-size: clamp(30px, 3.8vw, 56px);
-            font-weight: 300;
-            line-height: 1.12;
-            letter-spacing: -.5px;
+            font-size: clamp(36px, 5.4vw, 60px);
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.015em;
             color: #ffffff;
             margin-bottom: 0;
+            text-align: center;
         }
         .hero-title .g {
-            background: linear-gradient(130deg, #ffffff 0%, #d8d8d8 60%, #aaaaaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
         }
+        @keyframes hero-fade-up {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-badge { animation: hero-fade-up .7s cubic-bezier(.22,1,.36,1) .1s both; }
+        .hero-title { animation: hero-fade-up .85s cubic-bezier(.22,1,.36,1) .35s both; }
         .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
         .hero-btns .btn-primary { background: #ffffff; color: #111111; }
         .hero-btns .btn-primary:hover { box-shadow: 0 12px 36px rgba(255,255,255,.18); transform: translateY(-2px); }
@@ -996,7 +1001,7 @@
         .cap-svc-wrap { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
         .cap-svc-desc { font-size: 11px; color: rgba(255,255,255,.38); line-height: 1.5; padding-left: 2px; }
 
-        .content-over { }
+        .content-over { background: #ffffff; }
 
         /* ── WORK / STANDARDS — pcard pattern ── */
         .work-section { padding: 0; background: #FFFFFF; }
@@ -1549,10 +1554,11 @@
         <img src="assets/logo.png" alt="GlassCraft" class="logo-img">
     </a>
     <ul class="nav-links">
-        <li><a href="#products">Продукция</a></li>
-        <li><a href="#services">Услуги</a></li>
-        <li><a href="#about">О нас</a></li>
-        <li><a href="#pricing">Цены</a></li>
+        <li><a href="#standards">О компании</a></li>
+        <li><a href="#capabilities">Наши возможности</a></li>
+        <li><a href="#flowSection">Процесс</a></li>
+        <li><a href="#products">Работы</a></li>
+        <li><a href="#reviews">Отзывы</a></li>
         <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-contact">
@@ -1571,15 +1577,21 @@
         <div class="pcard-stack">
 
 <style>
-.gl-intro { display:flex; flex-direction:column; margin:0 -40px; background:#fff; border-radius:0 0 40px 40px; box-shadow:0 24px 64px rgba(0,0,0,.10), 0 8px 24px rgba(0,0,0,.06); position:relative; z-index:1; overflow:hidden; }
-.gl-intro-left { padding:80px 40px 64px; display:flex; flex-direction:row; align-items:center; gap:56px; }
-.gl-intro-text { flex:0 0 42%; display:flex; flex-direction:column; justify-content:center; align-self:stretch; }
+.gl-intro { display:flex; flex-direction:column; margin:0 -40px; background:#fff; border-radius:0; position:relative; z-index:1; overflow:hidden; }
+.gl-stat-row { display:flex; gap:10px; margin-top:28px; }
+.gl-stat-pill { flex:1; background:#f4f4f4; border-radius:14px; padding:14px 16px; display:flex; flex-direction:column; gap:5px; }
+.gl-stat-num { font-size:22px; font-weight:700; color:#0C0C0B; letter-spacing:-1px; line-height:1; }
+.gl-stat-label { font-size:11px; color:rgba(12,12,11,.45); line-height:1.35; }
+.gl-intro-btn { display:inline-flex; align-items:center; justify-content:center; margin-top:14px; padding:14px 56px; background:#0C0C0B; color:#fff; font-size:15px; font-weight:600; border-radius:100px; text-decoration:none; letter-spacing:-0.01em; transition:opacity .2s ease, transform .2s ease; width:fit-content; }
+.gl-intro-btn:hover { opacity:.82; transform:translateY(-1px); }
+.gl-intro-left { padding:80px 40px 64px 60px; display:flex; flex-direction:row; align-items:center; gap:120px; justify-content:flex-start; }
+.gl-intro-text { flex:0 0 560px; display:flex; flex-direction:column; justify-content:center; align-self:stretch; padding-left: clamp(48px, 6vw, 90px); padding-top: 60px; }
 .gl-intro-photo { flex:1; border-radius:20px; overflow:hidden; min-height:420px; }
 .gl-intro-photo img { width:100%; height:100%; object-fit:cover; display:block; }
 .gl-intro-tag { font-size:13px; font-weight:300; letter-spacing:.08em; color:#aaa; margin:0 0 14px; text-transform:uppercase; }
 .gl-intro-title { font-size:clamp(22px,3vw,44px); line-height:.95; font-weight:600; letter-spacing:-2px; margin:0 0 20px; color:#0C0C0B; }
-.gl-intro-desc { font-size:15px; color:rgba(12,12,11,.52); line-height:1.72; margin:0 0 36px; }
-.gl-intro-right { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.gl-intro-desc { font-size:15px; color:rgba(12,12,11,.52); line-height:1.72; margin:0 0 36px; max-width:clamp(200px,28vw,390px); }
+.gl-intro-right { flex:0 0 auto; display:flex; flex-direction:column; justify-content:center; align-items:center; }
 .gl-carousel-nav { display:flex; align-items:center; justify-content:center; gap:18px; margin-top:220px; }
 .gl-cnav-btn {
     width:46px; height:46px; border-radius:50%;
@@ -1670,24 +1682,10 @@
             </div>
         </div>
     </div>
-    <div class="gl-stats-bar" style="position:relative;z-index:10;margin:-90px auto 0;width:46%;display:flex;align-items:stretch;gap:16px;">
-        <div style="text-align:center;flex:1;background:rgba(255,255,255,0.68);border-radius:16px;padding:18px 24px;box-shadow:0 8px 48px rgba(0,0,0,0.13),0 2px 12px rgba(0,0,0,0.07);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);">
-            <div style="font-size:32px;font-weight:700;color:#0C0C0B;line-height:1;letter-spacing:-1.5px;"><span class="hsi-counter" data-target="15">15</span>+</div>
-            <div style="font-size:12px;color:rgba(12,12,11,.45);margin-top:6px;font-weight:400;line-height:1.4;">лет на рынке</div>
-        </div>
-        <div style="text-align:center;flex:1;background:rgba(255,255,255,0.68);border-radius:16px;padding:18px 24px;box-shadow:0 8px 48px rgba(0,0,0,0.13),0 2px 12px rgba(0,0,0,0.07);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);">
-            <div style="font-size:32px;font-weight:700;color:#0C0C0B;line-height:1;letter-spacing:-1.5px;"><span class="hsi-counter" data-target="1000">1000</span>+</div>
-            <div style="font-size:12px;color:rgba(12,12,11,.45);margin-top:6px;font-weight:400;line-height:1.4;">положительных отзывов</div>
-        </div>
-        <div style="text-align:center;flex:1;background:rgba(255,255,255,0.68);border-radius:16px;padding:18px 24px;box-shadow:0 8px 48px rgba(0,0,0,0.13),0 2px 12px rgba(0,0,0,0.07);backdrop-filter:blur(22px) saturate(1.8);-webkit-backdrop-filter:blur(22px) saturate(1.8);">
-            <div style="font-size:32px;font-weight:700;color:#0C0C0B;line-height:1;letter-spacing:-1.5px;"><span class="hsi-counter" data-target="15000">15000</span>+</div>
-            <div style="font-size:12px;color:rgba(12,12,11,.45);margin-top:6px;font-weight:400;line-height:1.4;">заказов выполнено</div>
-        </div>
-    </div>
     <div class="gl-intro-left fade-up">
         <div class="gl-intro-text">
             <p class="gl-intro-tag">О компании</p>
-            <h2 class="gl-intro-title">Зеркала и стекла без ограничений.</h2>
+            <h2 class="gl-intro-title">Зеркала и стекла<br>без ограничений.</h2>
             <p class="gl-intro-desc">Сделать 15 разных зеркал по референсам? Легко. Принимаем заказы любой сложности — от единичных арт-объектов до серий с фигурным краем, подсветкой и нестандартной геометрией. Реализуем точно по вашему ТЗ или визуализациям.</p>
         </div>
         <div class="gl-intro-right fade-up" style="transition-delay:.18s">
@@ -1885,284 +1883,155 @@
 })();
 </script>
 
+<style>
+.p6-hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 64px 48px 72px;
+    min-height: 520px;
+    color: #fff;
+    background: #1a2428 url("assets/benefits/main.jpg") center/cover no-repeat;
+    margin-top: 32px;
+    border-radius: 24px;
+}
+.p6-hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20,28,30,.55) 0%, rgba(20,28,30,.35) 40%, rgba(20,28,30,.55) 100%);
+    z-index: 0;
+}
+.p6-hero > * { position: relative; z-index: 1; }
+.p6-eyebrow {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    opacity: 0.9;
+    margin: 0 0 18px;
+    color: #fff;
+}
+.p6-headline {
+    text-align: center;
+    margin: 0 auto 28px;
+    font-weight: 600;
+    font-size: clamp(36px, 5.4vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    max-width: 900px;
+    color: #fff;
+}
+.p6-cta-wrap { display: flex; justify-content: center; margin-bottom: 56px; }
+.p6-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 22px;
+    border-radius: 10px;
+    transition: background .2s ease, transform .2s ease;
+}
+.p6-cta:hover { background: #ececec; }
+.p6-arrow {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    display: grid; place-items: center;
+    font-size: 11px;
+    flex-shrink: 0;
+}
+.p6-mini-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+.p6-mini {
+    background: rgba(20, 26, 28, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+.p6-thumb {
+    width: 100px; height: 100px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+}
+.p6-mini h4 {
+    margin: 2px 0 6px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+}
+.p6-mini p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: rgba(255,255,255,.7);
+}
+@media (max-width: 820px) {
+    .p6-hero { padding: 48px 24px 20px; min-height: auto; }
+    .p6-mini-row { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="p6-hero fade-up" id="capabilities" style="background-image:url('assets/benefits/main.jpg');background-size:cover;background-position:center;">
+    <p class="p6-eyebrow">Наши возможности</p>
+    <h2 class="p6-headline">Безупречный подход —<br>исключительный результат.</h2>
+    <div class="p6-cta-wrap">
+        <a class="p6-cta" href="#faq">
+            Сделать заказ
+            <span class="p6-arrow">→</span>
+        </a>
+    </div>
+    <div class="p6-mini-row">
+        <div class="p6-mini">
+            <div class="p6-thumb" style="background-image:url('assets/benefits/1.png')"></div>
+            <div>
+                <h4>Работаем с большими объёмами</h4>
+                <p>Серийные заказы от 10 до 100+ изделий — с индивидуальной точностью</p>
+            </div>
+        </div>
+        <div class="p6-mini">
+            <div class="p6-thumb" style="background-image:url('assets/benefits/2.png')"></div>
+            <div>
+                <h4>Сроки без «плавающих дат»</h4>
+                <p>Планируем производство заранее, адаптируемся под графики стройки или установки</p>
+            </div>
+        </div>
+        <div class="p6-mini">
+            <div class="p6-thumb" style="background-image:url('assets/benefits/7.png')"></div>
+            <div>
+                <h4>Точность до миллиметра</h4>
+                <p>Каждое изделие проходит геометрический контроль</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div><!-- /pcard-stack -->
     </div>
 </section>
 
-<div class="bezuprechny-section" style="background:#ffffff;padding:80px 40px 50px;">
-            <h2 class="fade-up" style="font-size:clamp(22px,3vw,44px);line-height:0.95;font-weight:600;letter-spacing:-2px;color:#111;margin:0 0 16px;text-align:center;">Безупречный подход — исключительный результат.</h2>
-
-<div class="marquee-wrap" style="margin:0 -40px 0;border-top:none">
-  <div class="marquee-track" style="animation-duration:22s;animation-direction:normal">
-    <span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span><span class="marquee-item">исключительный результат</span>
-  </div>
-</div>
-
-<style>
-#caps-grid .prod-card { border-radius:0; border:none; box-shadow:none; }
-#caps-grid .product-overlay { background:linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.88) 100%); }
-#caps-grid { margin: 0 -40px; }
-#caps-grid .prod-body {
-    position:absolute; inset:0; padding:26px 22px 26px 24px;
-    display:flex; flex-direction:row; justify-content:space-between; align-items:flex-end; gap:16px;
-    z-index:6;
-}
-#caps-grid .prod-body-text { display:flex; flex-direction:column; gap:5px; min-width:0; flex:1; overflow:hidden; }
-#caps-grid .pname { font-size:clamp(14px,1.6vw,22px); font-weight:800; letter-spacing:-.03em; line-height:1.1; color:#fff; margin:0; }
-#caps-grid .pyear { color:rgba(255,255,255,.58); font-size:12px; line-height:1.45; margin:4px 0 0; }
-#caps-grid .pmetrics {
-    position:absolute; bottom:26px; right:22px; z-index:7;
-    display:flex; flex-direction:column; gap:14px; padding-bottom:4px;
-    opacity:0.001;
-}
-#caps-grid .pmetric {
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    width:130px; aspect-ratio:1;
-    background: rgba(255,255,255,.09);
-    backdrop-filter: blur(18px) saturate(1.5);
-    -webkit-backdrop-filter: blur(18px) saturate(1.5);
-    border: 1px solid rgba(255,255,255,.16);
-    border-radius: 20px;
-    gap:4px; text-align:center;
-    will-change: backdrop-filter;
-    transform: translateZ(0);
-}
-#caps-grid .pm-val { color:#fff !important; font-size:24px; opacity:1 !important; letter-spacing:-.03em; }
-#caps-grid .pm-label { color:rgba(255,255,255,.48); font-size:11px; line-height:1.3; max-width:104px; }
-</style>
-            <div class="prod-grid" id="caps-grid">
-                <div class="prod-card fade-up">
-                    <div class="prod-img">
-                        <img src="assets/benefits/1.png" alt="Серийное производство">
-                        <div class="product-overlay"></div>
-                        <div class="prod-dim-overlay"></div>
-                    </div>
-                    <div class="prod-badge"><span class="prod-badge-dot"></span>Масс. производство</div>
-                    <div class="prod-center-label">Масс. производство</div>
-                    <div class="prod-body">
-                        <div class="prod-body-text">
-                            <h3 class="pname">Работаем с большими объёмами</h3>
-                            <p class="pyear">Серийные заказы от 10 до 100+ изделий — с индивидуальной точностью</p>
-                        </div>
-                    </div>
-                    <div class="pmetrics">
-                        <div class="pmetric"><span class="pm-val">100+</span><span class="pm-label">позиций в одной серии</span></div>
-                        <div class="pmetric"><span class="pm-val">100%</span><span class="pm-label">контроль каждого изделия</span></div>
-                    </div>
-                </div>
-                <div class="prod-card fade-up">
-                    <div class="prod-img">
-                        <img src="assets/benefits/2.png" alt="Сроки производства">
-                        <div class="product-overlay"></div>
-                        <div class="prod-dim-overlay"></div>
-                    </div>
-                    <div class="prod-badge"><span class="prod-badge-dot"></span>Дедлайны</div>
-                    <div class="prod-center-label">Дедлайны</div>
-                    <div class="prod-body">
-                        <div class="prod-body-text">
-                            <h3 class="pname">Сроки без «плавающих дат»</h3>
-                            <p class="pyear">Планируем производство заранее, адаптируемся под графики стройки или установки</p>
-                        </div>
-                    </div>
-                    <div class="pmetrics">
-                        <div class="pmetric"><span class="pm-val">24 ч</span><span class="pm-label">минимальный срок срочного заказа</span></div>
-                        <div class="pmetric"><span class="pm-val">100%</span><span class="pm-label">исполнение в согласованный срок</span></div>
-                    </div>
-                </div>
-                <div class="prod-card fade-up">
-                    <div class="prod-img">
-                        <img src="assets/benefits/3.png" alt="Фигурный край">
-                        <div class="product-overlay"></div>
-                        <div class="prod-dim-overlay"></div>
-                    </div>
-                    <div class="prod-badge"><span class="prod-badge-dot"></span>Обработка</div>
-                    <div class="prod-center-label">Обработка</div>
-                    <div class="prod-body">
-                        <div class="prod-body-text">
-                            <h3 class="pname">Фигурный край и шлифовка</h3>
-                            <p class="pyear">Фасетная и криволинейная обработка кромок любой сложности</p>
-                        </div>
-                    </div>
-                    <div class="pmetrics">
-                        <div class="pmetric"><span class="pm-val">1 мм</span><span class="pm-label">точность обработки кромки</span></div>
-                    </div>
-                </div>
-                <div class="prod-card fade-up">
-                    <div class="prod-img">
-                        <img src="assets/benefits/4.png" alt="Нанесение покрытий">
-                        <div class="product-overlay"></div>
-                        <div class="prod-dim-overlay"></div>
-                    </div>
-                    <div class="prod-badge"><span class="prod-badge-dot"></span>Покрытия</div>
-                    <div class="prod-center-label">Покрытия</div>
-                    <div class="prod-body">
-                        <div class="prod-body-text">
-                            <h3 class="pname">Нанесение покрытий и плёнок</h3>
-                            <p class="pyear">Тонировка, бронзирование, матирование и специальные покрытия</p>
-                        </div>
-                    </div>
-                    <div class="pmetrics">
-                        <div class="pmetric"><span class="pm-val">10+</span><span class="pm-label">видов покрытий и плёнок</span></div>
-                    </div>
-                </div>
-                <div class="prod-card fade-up">
-                    <div class="prod-img">
-                        <img src="assets/benefits/5.png" alt="UV-печать">
-                        <div class="product-overlay"></div>
-                        <div class="prod-dim-overlay"></div>
-                    </div>
-                    <div class="prod-badge"><span class="prod-badge-dot"></span>UV-печать</div>
-                    <div class="prod-center-label">UV-печать</div>
-                    <div class="prod-body">
-                        <div class="prod-body-text">
-                            <h3 class="pname">UV-печать и декор</h3>
-                            <p class="pyear">Авторские рисунки и паттерны на стекле и зеркале</p>
-                        </div>
-                    </div>
-                    <div class="pmetrics">
-                        <div class="pmetric"><span class="pm-val">0,1 мм</span><span class="pm-label">точность нанесения рисунка</span></div>
-                    </div>
-                </div>
-                <div class="prod-card fade-up">
-                    <div class="prod-img">
-                        <img src="assets/benefits/6.png" alt="Закалка стекла">
-                        <div class="product-overlay"></div>
-                        <div class="prod-dim-overlay"></div>
-                    </div>
-                    <div class="prod-badge"><span class="prod-badge-dot"></span>Закалка</div>
-                    <div class="prod-center-label">Закалка</div>
-                    <div class="prod-body">
-                        <div class="prod-body-text">
-                            <h3 class="pname">Закалка и упрочнение</h3>
-                            <p class="pyear">Закалённое стекло по ГОСТ — в 5 раз прочнее стандартного</p>
-                        </div>
-                    </div>
-                    <div class="pmetrics">
-                        <div class="pmetric"><span class="pm-val">×5</span><span class="pm-label">прочнее стандартного стекла</span></div>
-                    </div>
-                </div>
-            </div>
-<script>
-(function(){
-  var grid  = document.getElementById('caps-grid');
-  var cards = Array.from(grid.querySelectorAll('.prod-card'));
-
-  if (window.innerWidth <= 768) {
-    // Mobile accordion: tap to open/close, only one open at a time
-    if (cards.length > 0) cards[0].classList.add('mob-open');
-    cards.forEach(function(card) {
-      card.addEventListener('click', function() {
-        var isOpen = card.classList.contains('mob-open');
-        cards.forEach(function(c) { c.classList.remove('mob-open'); });
-        if (!isOpen) card.classList.add('mob-open');
-      });
-    });
-    return;
-  }
-
-  var DURATION = 1200;
-  var AW = 65, IW = 7;
-
-  var cur    = [AW, IW, IW, IW, IW, IW];
-  var from   = cur.slice();
-  var to     = cur.slice();
-  var startT = null;
-  var raf    = null;
-  var active = 0;
-
-  function ease(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
-
-  function tick(ts){
-    if(!startT) startT = ts;
-    var t = Math.min((ts-startT)/DURATION, 1);
-    var e = ease(t);
-    cards.forEach(function(c,i){
-      var w = from[i]+(to[i]-from[i])*e;
-      c.style.width = w+'%';
-      cur[i] = w;
-    });
-    if(t<1) raf = requestAnimationFrame(tick);
-  }
-
-  function go(targets){
-    cancelAnimationFrame(raf);
-    from = cur.slice();
-    to   = targets;
-    startT = null;
-    raf = requestAnimationFrame(tick);
-  }
-
-  var TR     = 'opacity .45s ease';
-  var TR_IN  = 'opacity .4s ease .85s';
-  var TR_OUT = 'opacity .15s ease';
-  function applyState(idx){
-    cards.forEach(function(c,i){
-      var isAct = i===idx;
-      var dim   = c.querySelector('.prod-dim-overlay');
-      var badge = c.querySelector('.prod-badge');
-      var cl    = c.querySelector('.prod-center-label');
-      var body  = c.querySelector('.prod-body');
-      var pm    = c.querySelector('.pmetrics');
-      if(dim)  { dim.style.transition=TR;              dim.style.opacity   = isAct?'0':'1'; }
-      if(badge){ badge.style.transition=TR;             badge.style.opacity = isAct?'1':'0'; }
-      if(cl)   { cl.style.transition=TR;               cl.style.opacity    = isAct?'0':'1'; }
-      if(body) { body.style.transition=isAct?TR_IN:TR_OUT; body.style.opacity = isAct?'1':'0'; }
-      if(pm)   { pm.style.transition=isAct?TR_IN:TR_OUT;   pm.style.opacity   = isAct?'1':'0.001'; }
-    });
-  }
-
-  cards.forEach(function(c,i){
-    c.style.width = cur[i]+'%';
-    var isAct = i===0;
-    var dim   = c.querySelector('.prod-dim-overlay');
-    var badge = c.querySelector('.prod-badge');
-    var cl    = c.querySelector('.prod-center-label');
-    var body  = c.querySelector('.prod-body');
-    var pm    = c.querySelector('.pmetrics');
-    if(dim)  dim.style.opacity   = isAct?'0':'1';
-    if(badge)badge.style.opacity = isAct?'1':'0';
-    if(cl)   cl.style.opacity    = isAct?'0':'1';
-    if(body) body.style.opacity  = isAct?'1':'0';
-    if(pm)   pm.style.opacity    = isAct?'1':'0.001';
-  });
-
-  cards.forEach(function(card,i){
-    card.addEventListener('mouseenter', function(){
-      if(active===i) return;
-      active = i;
-      go(cards.map(function(_,j){ return j===i?AW:IW; }));
-      applyState(i);
-    });
-  });
-
-  grid.addEventListener('mouseleave', function(){
-    active = 0;
-    go([AW,IW,IW,IW,IW,IW]);
-    applyState(0);
-  });
-})();
-</script>
-
-<style>
-.marquee-wrap{overflow:hidden;width:100%;padding:18px 0;border-top:1px solid rgba(0,0,0,.07)}
-.marquee-wrap+.marquee-wrap{border-top:1px solid rgba(0,0,0,.07)}
-.marquee-track{display:flex;width:max-content;animation:marquee-scroll linear infinite}
-.marquee-item{white-space:nowrap;font-size:clamp(12px,1.3vw,19px);font-weight:600;letter-spacing:0.02em;color:rgba(0,0,0,.35);padding:0 20px;text-transform:uppercase}
-@keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-</style>
-
-<div class="marquee-wrap" style="margin:0 -40px 0;border-top:none">
-  <div class="marquee-track" style="animation-duration:18s;animation-direction:reverse">
-    <span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span><span class="marquee-item">безупречный подход</span>
-  </div>
-</div>
-</div><!-- /безупречный блок -->
 
 </div>
 
 <!-- ═══════════════ ORDER FLOW ═══════════════ -->
 <style>
-.flow-section{background:#ffffff;color:#0C0C0B;font-family:'Inter',sans-serif;padding:64px 48px 88px;border-radius:40px;box-shadow:0 -24px 64px rgba(0,0,0,.10), 0 -8px 24px rgba(0,0,0,.06), 0 24px 64px rgba(0,0,0,.10), 0 8px 24px rgba(0,0,0,.06);position:relative;z-index:1;}
+.flow-section{background:#ffffff;color:#0C0C0B;font-family:'Inter',sans-serif;padding:64px 48px 88px;border-radius:0 0 40px 40px;position:relative;z-index:1;}
 .flow-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;color:rgba(255,255,255,.7);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);padding:6px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.5px;opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
 .flow-badge-dot{width:5px;height:5px;background:#4ade80;border-radius:50%;animation:blink 2s infinite;flex-shrink:0}
 .flow-main-title{font-size:clamp(22px,3vw,44px);line-height:0.95;font-weight:600;letter-spacing:-2px;margin:0;white-space:nowrap;opacity:0;transform:translateY(30px);transition:opacity 0.8s ease 0.15s,transform 0.8s ease 0.15s}
@@ -2285,7 +2154,7 @@
 <section class="section" id="capabilities" style="border-radius:40px;position:relative;z-index:1;">
     <div class="cap-full">
         <div class="cap-heading fade-up" style="text-align:center">
-            <h2 class="section-title" style="font-weight:300;font-size:clamp(26px,2.6vw,40px);letter-spacing:-.3px;line-height:1.18">Производство, которому доверяют</h2>
+            <h2 class="section-title" style="font-weight:600;font-size:clamp(22px,3vw,44px);letter-spacing:-2px;line-height:.95;margin-top:40px">Производство, которому доверяют</h2>
         </div>
         <div class="cap-grid">
 
@@ -2362,10 +2231,8 @@
 <!-- ═══════════════ PRODUCTS ═══════════════ -->
 <section class="section" id="products" style="background:#ffffff;border-radius:40px;box-shadow:0 -24px 64px rgba(0,0,0,.10), 0 -8px 24px rgba(0,0,0,.06), 0 24px 64px rgba(0,0,0,.10), 0 8px 24px rgba(0,0,0,.06);position:relative;z-index:1;">
     <div class="container">
-        <div class="prod-header">
-            <div style="display:flex;flex-direction:column">
-                <h2 class="fade-up" style="font-size:clamp(30px,5vw,64px);line-height:0.95;font-weight:600;letter-spacing:-2.5px;margin:0 0 56px;text-align:center">Ни одна хорошая идея не должна остаться нереализованной.</h2>
-            </div>
+        <div style="text-align:center;padding:0 40px 44px;">
+            <h2 style="display:block;font-size:clamp(26px,3.8vw,52px);font-weight:600;line-height:1.08;letter-spacing:-0.025em;color:#0C0C0B;margin:0 auto;max-width:1100px;">Ни одна хорошая идея не должна<br>остаться нереализованной.</h2>
         </div>
         <div class="bento-wrap">
             <div class="bento-grid">
@@ -2475,8 +2342,8 @@
 
 
 
-<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
-<section class="section" id="testimonials" style="padding-top:40px">
+<!-- ═══════════════ TESTIMONIALS (removed) ═══════════════ -->
+<section class="section" id="testimonials" style="display:none">
     <div class="container" style="max-width:none;padding:0 40px">
         <div>
             <p style="font-size:13px;font-weight:300;letter-spacing:0.08em;color:#aaa;margin:0 0 14px 0;text-transform:uppercase">Отзывы</p>
@@ -2612,6 +2479,212 @@
     </div>
 </section>
 
+<!-- ═══════════════ REVIEWS ═══════════════ -->
+<style>
+.reviews-section {
+    background: #ffffff;
+    padding: 0;
+    margin: 0;
+}
+.reviews-section .container {
+    max-width: none;
+    padding: 0 40px;
+}
+.reviews-wrapper {
+    position: relative;
+}
+.reviews-header {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
+}
+.reviews-header h2 {
+    text-align: center;
+    max-width: 700px;
+    text-shadow: none;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,1) 30%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0) 100%);
+    padding: 32px 48px;
+    border-radius: 24px;
+}
+
+.reviews-stage {
+    width: 100%;
+    height: 680px;
+    overflow: hidden;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+.reviews-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 340px;
+    flex-shrink: 0;
+    will-change: transform;
+    align-items: stretch;
+}
+
+.rv-card {
+    background: #f5f5f3;
+    border: 1px solid rgba(0,0,0,.07);
+    border-radius: 20px;
+    padding: 22px 22px 20px;
+    flex-shrink: 0;
+}
+.rv-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.rv-name { font-size: 14px; font-weight: 600; color: #0C0C0B; letter-spacing: -.2px; }
+.rv-stars { display: flex; gap: 2px; }
+.rv-stars span { font-size: 13px; color: #f5c842; line-height: 1; }
+.rv-text { font-size: 13px; line-height: 1.65; color: rgba(12,12,11,.5); margin: 0; }
+
+@media (max-width: 1100px) {
+    .reviews-col:nth-child(4) { display: none; }
+}
+@media (max-width: 900px) {
+    .reviews-stage { height: 560px; gap: 14px; }
+    .reviews-col { width: 280px; }
+    .reviews-col:nth-child(3) { display: none; }
+}
+@media (max-width: 640px) {
+    .reviews-stage { height: 480px; gap: 12px; }
+    .reviews-col { width: 260px; }
+    .reviews-section { padding: 64px 0; }
+    .reviews-section .container { padding: 0 16px; }
+}
+</style>
+
+<section class="reviews-section" id="reviews">
+    <div class="container">
+        <div class="reviews-wrapper">
+            <div class="reviews-header fade-up">
+                <h2 style="font-size:clamp(22px,3vw,44px);line-height:0.95;font-weight:600;letter-spacing:-2px;margin:0;color:#0C0C0B">Доверие, подтверждённое<br>сотнями клиентов.</h2>
+            </div>
+            <div class="reviews-stage" id="reviewsStage"></div>
+        </div>
+    </div>
+</section>
+
+<script>
+(function(){
+    var REVIEWS = [
+        { name:"Алексей Морозов",   text:"Заказывали зеркало с фацетом для ванной комнаты. Всё сделали точно по размерам, кромка идеальная. Срок — 4 дня. Очень доволен результатом." },
+        { name:"Марина Соколова",   text:"Матовое стекло на перегородку в офис — выглядит дорого и стильно. Консультант помог подобрать нужную степень матирования. Рекомендую!" },
+        { name:"Дмитрий Кузнецов",  text:"Делали триплекс для лестничного ограждения. Компания сама замерила, вырезала и смонтировала. Качество не вызывает вопросов." },
+        { name:"Екатерина Лебедева",text:"Брала закалённое стекло на душевую кабину. Всё пришло вовремя, швы аккуратные. Уже полгода эксплуатирую — никаких нареканий." },
+        { name:"Сергей Новиков",    text:"Очень понравилось, что принимают нестандартные формы — заказал трапецию. Вырезали чётко по чертежу. Цена справедливая." },
+        { name:"Ольга Петрова",     text:"Заказывала зеркало с алмазной гравировкой для прихожей. Смотрится великолепно. Буду обращаться снова — это настоящее искусство." },
+        { name:"Игорь Васильев",    text:"Производство держит обещания: сказали три дня — сделали за три дня. Стекло пришло упакованное, без единой царапины." },
+        { name:"Наталья Федорова",  text:"Купила полку из каленого стекла. Красиво, держит вес. Менеджер был вежливым и развеял все мои сомнения перед покупкой." },
+        { name:"Андрей Захаров",    text:"Стекло для офисных перегородок — большой объём, 14 листов. Всё в допусках, монтажники отработали слаженно. Отличная компания." },
+        { name:"Виктория Орлова",   text:"Делала витрину для магазина. Помогли с расчётом толщины, учли нагрузку. UV-печать фирменного узора получилась яркой и чёткой." },
+        { name:"Павел Козлов",      text:"Полное соответствие описанию: матирование ровное, без разводов. Уже второй раз заказываю — теперь для загородного дома." },
+        { name:"Людмила Семёнова",  text:"Оперативно ответили на звонок, подробно объяснили все варианты обработки. Стекло получилось на высшем уровне, спасибо!" },
+        { name:"Роман Попов",       text:"Заказывали большой лист с несколькими сверловками. Отверстия чистые, без сколов. Крепёж вошёл идеально. Рекомендую!" },
+        { name:"Анастасия Белова",  text:"Брала стекло на кухонный фартук с UV-рисунком. Цвета точно как на макете, поверхность лёгкая в уходе. Очень красиво!" },
+        { name:"Максим Волков",     text:"Реставрировали старинное зеркало — сложная форма с вырезами. Справились профессионально. Результат превзошёл ожидания." },
+        { name:"Татьяна Крылова",   text:"Остекление лоджии нестандартным стеклом. Бригада замерила, изготовили за 5 дней, смонтировали аккуратно. Всем советую." },
+        { name:"Евгений Соловьёв",  text:"Стеклянные двери с матовыми вставками — эффектно смотрятся в интерьере. Петли подобрали сами. Доволен на 100%." },
+        { name:"Юлия Михайлова",    text:"Купила несколько зеркал разных форм для студии йоги. Кромки шлифованы, крепёж в комплекте. Монтаж прошёл без проблем." },
+        { name:"Кирилл Гусев",      text:"Стекло для террасного навеса: закалённое, с ровной кромкой. Материал выдерживает нашу зиму без деформаций. Отлично!" },
+        { name:"Светлана Тихонова", text:"Лёгкое оформление балконной перегородки стеклом с матовым узором. Смотрится стильно, пропускает свет. Спасибо мастерам." },
+    ];
+
+    var GAP    = 18;
+    var SPEEDS = [45, 36, 54, 48]; // px/sec
+    var STARTS = [0, 7, 13, 3];   // стартовый индекс отзыва для каждой колонки
+    var stage  = document.getElementById('reviewsStage');
+
+    function makeCard(r) {
+        var el = document.createElement('div');
+        el.className = 'rv-card';
+        el.innerHTML =
+            '<div class="rv-top">' +
+                '<span class="rv-name">' + r.name + '</span>' +
+                '<div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>' +
+            '</div>' +
+            '<p class="rv-text">' + r.text + '</p>';
+        return el;
+    }
+
+    for (var ci = 0; ci < 4; ci++) {
+        (function(ci) {
+            var colEl = document.createElement('div');
+            colEl.className = 'reviews-col';
+            stage.appendChild(colEl);
+
+            var nextIdx = STARTS[ci];
+            var offset  = 0;
+            var lastTime = null;
+            var running  = false;
+
+            function next() {
+                var r = REVIEWS[nextIdx % REVIEWS.length];
+                nextIdx++;
+                return r;
+            }
+
+            // Заполняем колонку начальными карточками
+            for (var i = 0; i < 12; i++) colEl.appendChild(makeCard(next()));
+
+            function tick(now) {
+                if (!running) return;
+                if (lastTime === null) lastTime = now;
+                var dt = Math.min(now - lastTime, 50); // защита от прыжка при скрытом табе
+                lastTime = now;
+
+                offset += SPEEDS[ci] * dt / 1000;
+
+                // Когда первая карточка целиком уходит вверх — удаляем её и добавляем новую снизу
+                // Смещаем offset на её высоту, чтобы остальные не прыгнули
+                var first = colEl.firstElementChild;
+                if (first && offset >= first.offsetHeight + GAP) {
+                    offset -= first.offsetHeight + GAP;
+                    colEl.removeChild(first);
+                    colEl.appendChild(makeCard(next()));
+                }
+
+                colEl.style.transform = 'translateY(-' + offset + 'px)';
+                requestAnimationFrame(tick);
+            }
+
+            // Стартовый сдвиг колонок чтобы они показывали разные части ленты
+            requestAnimationFrame(function() {
+                var shift = ci * 200;
+                offset = shift;
+                var first = colEl.firstElementChild;
+                while (first && offset >= first.offsetHeight + GAP) {
+                    offset -= first.offsetHeight + GAP;
+                    colEl.removeChild(first);
+                    colEl.appendChild(makeCard(next()));
+                    first = colEl.firstElementChild;
+                }
+                colEl.style.transform = 'translateY(-' + offset + 'px)';
+            });
+
+            new IntersectionObserver(function(entries) {
+                var vis = entries[0].isIntersecting;
+                if (vis && !running) { running = true; lastTime = null; requestAnimationFrame(tick); }
+                else if (!vis) { running = false; }
+            }, { threshold: 0.05 }).observe(stage);
+
+        })(ci);
+    }
+})();
+</script>
+
 <!-- ═══════════════ FAQ + CONTACT ═══════════════ -->
 <style>
 .faq-contact { display:flex; flex-direction:column; justify-content:center; padding-top:8px; }
@@ -2626,10 +2699,10 @@
 .faq-phone { font-size:22px; font-weight:600; letter-spacing:-.03em; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.2); padding-bottom:4px; transition:border-color .2s; }
 .faq-phone:hover { border-color:#fff; }
 </style>
-<section class="section faq-bg" id="faq" style="border-radius:40px 40px 0 0;box-shadow:0 -24px 64px rgba(0,0,0,.20), 0 -8px 24px rgba(0,0,0,.12);position:relative;z-index:1;padding-top:64px;">
+<section class="section faq-bg" id="faq" style="border-radius:40px 40px 0 0;box-shadow:0 -24px 64px rgba(0,0,0,.20), 0 -8px 24px rgba(0,0,0,.12);position:relative;z-index:1;padding-top:64px;padding-bottom:0;">
     <div class="container" style="max-width:none;padding:0 40px">
         <div class="faq-layout">
-            <div>
+            <div class="fade-up">
                 <h2 style="font-size:clamp(22px,3vw,44px);line-height:0.95;font-weight:600;letter-spacing:-2px;margin:0 0 32px">Частые вопросы.</h2>
                 <div class="faq-list">
                     <div class="faq-item">
@@ -2679,8 +2752,8 @@
                     </div>
                 </div>
             </div>
-            <div class="faq-contact">
-                <p class="faq-contact-label">Свяжитесь с нами</p>
+            <div class="faq-contact fade-up" style="transition-delay:.15s">
+                <p class="faq-contact-label">FAQ</p>
                 <h3 class="faq-contact-title">Готовы<br>ответить.</h3>
                 <div class="faq-contact-btns">
                     <a href="https://t.me/glasscraft" class="faq-btn faq-btn-tg">
@@ -3113,42 +3186,6 @@ html { overflow-x: hidden; }
     .gl-intro-text { flex: 0 0 100% !important; max-width: 100% !important; align-self: auto !important; }
     .gl-intro-photo { min-height: 220px !important; }
     .gl-intro-right { display: none !important; }
-
-    /* «Безупречный подход» — контент во всю ширину */
-    .bezuprechny-section { padding: 44px 0 32px !important; }
-    .bezuprechny-section > h2 { padding: 0 16px; text-align: left !important; }
-    .bezuprechny-section .marquee-wrap { margin: 0 !important; }
-
-    /* caps-grid — аккордеон (тап раскрывает одну карточку) */
-    #caps-grid {
-        flex-direction: column !important;
-        height: auto !important;
-        margin: 0 !important;
-        gap: 0 !important;
-    }
-    #caps-grid .prod-card {
-        width: 100% !important;
-        height: 72px !important;
-        min-height: 0 !important;
-        overflow: hidden !important;
-        transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
-        cursor: pointer !important;
-        border-bottom: 1px solid rgba(255,255,255,0.12) !important;
-    }
-    #caps-grid .prod-card.mob-open { height: 370px !important; }
-    #caps-grid .prod-img { position: absolute !important; inset: 0 !important; height: 100% !important; }
-    #caps-grid .prod-badge { opacity: 1 !important; transition: none !important; }
-    #caps-grid .prod-center-label { display: none !important; }
-    #caps-grid .prod-dim-overlay { opacity: 0.55 !important; transition: opacity 0.35s ease !important; }
-    #caps-grid .prod-card.mob-open .prod-dim-overlay { opacity: 0.22 !important; }
-    #caps-grid .prod-body {
-        opacity: 0 !important;
-        transition: opacity 0.2s ease !important;
-        position: absolute !important;
-        inset: 0 !important;
-    }
-    #caps-grid .prod-card.mob-open .prod-body { opacity: 1 !important; transition: opacity 0.35s ease 0.15s !important; }
-    #caps-grid .pmetrics { display: none !important; }
 
     /* Flow section */
     .flow-section { padding: 44px 16px 52px !important; border-radius: 24px !important; }
