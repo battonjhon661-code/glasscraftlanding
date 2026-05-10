@@ -2053,7 +2053,7 @@
 <!-- ═══════════════ ORDER FLOW ═══════════════ -->
 <style>
 .flow-section {
-  background: #ecebe5;
+  background: #ffffff;
   color: #14140f;
   font-family: 'Inter', sans-serif;
   padding: 80px 56px 120px;
@@ -2182,12 +2182,20 @@
   .hiw-stage { grid-template-columns: 14px 1fr; gap: 16px; }
   .hiw-step {
     grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 24px;
+    gap: 10px;
+    padding: 16px 60px 16px 20px;
+    position: relative;
   }
-  .hiw-step-num { font-size: 44px; }
-  .hiw-step h3 { font-size: 22px; }
-  .hiw-step-icon { justify-self: flex-end; }
+  .hiw-step-num { display: none; }
+  .hiw-step h3 { font-size: 20px; }
+  .hiw-step-icon {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    justify-self: auto;
+    width: 44px;
+    height: 44px;
+  }
 }
 </style>
 
@@ -3333,12 +3341,38 @@ html { overflow-x: hidden; }
     .gl-intro-left {
         flex-direction: column !important;
         padding: 32px 16px 28px !important;
-        gap: 20px !important;
+        gap: 0 !important;
         align-items: flex-start !important;
     }
-    .gl-intro-text { flex: 0 0 100% !important; max-width: 100% !important; align-self: auto !important; }
+    .gl-intro-text {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        align-self: auto !important;
+        padding-left: 0 !important;
+        padding-top: 0 !important;
+        width: 100% !important;
+        margin-bottom: 24px !important;
+    }
+    .gl-intro-desc { max-width: 100% !important; }
     .gl-intro-photo { min-height: 220px !important; }
-    .gl-intro-right { display: none !important; }
+    .gl-intro-right {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        padding-bottom: 16px !important;
+    }
+    .gl-scene {
+        transform: scale(0.58) !important;
+        transform-origin: top center !important;
+        margin-bottom: -100px !important;
+    }
+    .gl-carousel-nav {
+        margin-top: 80px !important;
+        align-self: center !important;
+    }
 
     /* Flow section */
     .flow-section { padding: 44px 16px 52px !important; border-radius: 24px !important; }
@@ -3410,6 +3444,8 @@ html { overflow-x: hidden; }
     #faq { border-radius: 20px 20px 0 0 !important; }
     #faq .container { padding: 0 16px !important; }
     .faq-layout { grid-template-columns: 1fr !important; gap: 40px; }
+    .faq-contact-title br { display: none !important; }
+    .faq-contact-title { white-space: nowrap; }
 
     /* Footer */
     footer .container { padding: 0 16px !important; }
