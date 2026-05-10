@@ -1575,7 +1575,7 @@
             }
             .gl-scene { width: 320px; }
             /* Опускаем бар с точками ниже кольца */
-            .gl-carousel-nav { margin-top: 80px !important; }
+            .gl-carousel-nav { margin-top: 200px !important; }
 
             /* 4. "Производство, которому доверяют" — горизонтальный свайп + подсветка */
             .cap-full { padding: 0 !important; }
@@ -1637,6 +1637,7 @@
             .bento-card > img { transform: none !important; }
             .bento-card::after { opacity: 0.55 !important; }
             .bento-info { opacity: 1 !important; transform: translateY(0) !important; }
+            .bento-info p { display: none !important; }
         }
 
         /* Reviews mobile — высота auto для горизонтальных рядов */
@@ -1797,14 +1798,14 @@
         <div class="gl-intro-right fade-up" style="transition-delay:.18s">
             <div class="gl-scene">
                 <div class="gl-ring" id="gl-ring">
-                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-1"><img src="assets/spin/card1.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-2"><img src="assets/spin/card2.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.8" data-name="Стекло-3"><img src="assets/spin/card3.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-4"><img src="assets/spin/card4.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-5"><img src="assets/spin/card5.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.8" data-name="Стекло-6"><img src="assets/spin/card6.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="4.9" data-name="Стекло-7"><img src="assets/spin/card7.jpg" alt=""></div>
-                    <div class="gl-car-card" data-rating="5.0" data-name="Стекло-8"><img src="assets/spin/card8.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="5.0" data-name="Зеркало в индивидуальной раме"><img src="assets/spin/card1.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="5.0" data-name="Комбинированное еврозеркало"><img src="assets/spin/card2.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.9" data-name="Зеркало в раме"><img src="assets/spin/card3.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.9" data-name="Зеркальное панно"><img src="assets/spin/card4.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.9" data-name="Ограждение парилки"><img src="assets/spin/card5.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="5.0" data-name="Зеркальное панно"><img src="assets/spin/card6.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="4.9" data-name="Зеркало с подсветкой"><img src="assets/spin/card7.jpg" alt=""></div>
+                    <div class="gl-car-card" data-rating="5.0" data-name="Душевая с подсветкой"><img src="assets/spin/card8.jpg" alt=""></div>
                 </div>
             </div>
             <div class="gl-carousel-nav">
@@ -1826,9 +1827,9 @@
 </div>
 <div id="gl-cursor-badge">
     <span class="gcb-star">★</span>
-    <span id="gcb-score">4.9</span>
+    <span id="gcb-score">5.0</span>
     <span class="gcb-sep">·</span>
-    <span class="gcb-name" id="gcb-name">Стекло-1</span>
+    <span class="gcb-name" id="gcb-name">Зеркало в индивидуальной раме</span>
 </div>
 
 <script>
@@ -2347,7 +2348,7 @@
         <div class="hiw-step-body">
           <div class="hiw-step-tag">Заявка</div>
           <h3>Оставьте запрос удобным способом</h3>
-          <p>Напишите на сайте, позвоните или напишите в мессенджер. Менеджер свяжется в течение 15 минут и уточнит детали вашего проекта.</p>
+          <p>Позвоните или напишите в мессенджер. Менеджер свяжется в течение 15 минут и уточнит детали вашего проекта.</p>
         </div>
         <div class="hiw-step-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -2358,7 +2359,7 @@
         <div class="hiw-step-num">02</div>
         <div class="hiw-step-body">
           <div class="hiw-step-tag">Расчёт</div>
-          <h3>Бесплатная смета за 1 рабочий день</h3>
+          <h3>Бесплатный расчет за 1 рабочий день</h3>
           <p>Рассчитываем стоимость под ваш запрос — материал, обработка, сроки. Цена фиксируется до старта: никаких скрытых наценок в процессе.</p>
         </div>
         <div class="hiw-step-icon" aria-hidden="true">
@@ -2370,7 +2371,7 @@
         <div class="hiw-step-num">03</div>
         <div class="hiw-step-body">
           <div class="hiw-step-tag">Договор</div>
-          <h3>Фиксация условий и предоплата 50%</h3>
+          <h3>Фиксация условий</h3>
           <p>Подписываем договор с чёткими сроками и полной спецификацией изделий. Производство запускается сразу после подтверждения.</p>
         </div>
         <div class="hiw-step-icon" aria-hidden="true">
@@ -2395,7 +2396,7 @@
         <div class="hiw-step-body">
           <div class="hiw-step-tag">Отгрузка</div>
           <h3>Доставка или самовывоз</h3>
-          <p>Упаковываем с защитой от повреждений. Доставляем по Москве и МО, отправляем в регионы через транспортные компании.</p>
+          <p>Упаковываем с защитой от повреждений. Доставляем по Москве и МО.</p>
         </div>
         <div class="hiw-step-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
@@ -2459,7 +2460,7 @@
                         </div>
                         <div class="cap-svc-wrap">
                             <div class="cap-svc-item">Фацетирование</div>
-                            <div class="cap-svc-desc">Фацет от 5 до 60 мм, прямолинейный и фигурный фацет. Обработка стекла с приданием объёма, глубины и выразительного блеска. Минимальный размер изделия — 35×35 мм.</div>
+                            <div class="cap-svc-desc">Фацет от 5 до 60 мм, прямолинейный и фигурный фацет. Обработка стекла с приданием объёма, глубины и выразительного блеска.</div>
                         </div>
                         <div class="cap-svc-wrap">
                             <div class="cap-svc-item">Алмазная гравировка</div>
@@ -2909,7 +2910,7 @@
     }
 
     if (isMobile) {
-        /* ── Mobile: два горизонтальных авто-скролл ряда ── */
+        /* ── Mobile: три горизонтальных авто-скролл ряда (1→, 2←, 3→) ── */
         stage.style.flexDirection   = 'column';
         stage.style.height          = 'auto';
         stage.style.overflowX       = 'hidden';
@@ -2919,59 +2920,48 @@
         stage.style.gap             = '14px';
         stage.style.padding         = '12px 0';
 
-        var MOB_SPEEDS = [38, 52];
-        var MOB_STARTS = [0, 10];
+        var MOB_CARD_W = 270;
         var MOB_GAP    = 12;
+        var CYCLE_W    = 14 * (MOB_CARD_W + MOB_GAP);
+        var MOB_SPEEDS = [38, 44, 42];
+        var MOB_STARTS = [0, 7, 14];
+        var MOB_DIRS   = [-1, 1, -1];
 
-        for (var ri = 0; ri < 2; ri++) {
+        for (var ri = 0; ri < 3; ri++) {
             (function(ri) {
                 var rowEl = document.createElement('div');
-                rowEl.style.cssText = 'display:flex;flex-direction:row;gap:12px;will-change:transform;flex-shrink:0;';
+                rowEl.style.cssText = 'display:flex;flex-direction:row;gap:' + MOB_GAP + 'px;will-change:transform;flex-shrink:0;';
                 stage.appendChild(rowEl);
-
-                var nextIdx  = MOB_STARTS[ri];
-                var offset   = ri * 340;
-                var lastTime = null;
-                var running  = false;
-
-                function next() { var r = REVIEWS[nextIdx % REVIEWS.length]; nextIdx++; return r; }
 
                 function makeMobCard(r) {
                     var el = makeCard(r);
-                    el.style.width     = '240px';
+                    el.style.width      = MOB_CARD_W + 'px';
                     el.style.flexShrink = '0';
                     return el;
                 }
 
-                for (var i = 0; i < 14; i++) rowEl.appendChild(makeMobCard(next()));
+                var base = MOB_STARTS[ri];
+                for (var i = 0; i < 14; i++) rowEl.appendChild(makeMobCard(REVIEWS[(base + i) % REVIEWS.length]));
+                for (var i = 0; i < 14; i++) rowEl.appendChild(makeMobCard(REVIEWS[(base + i) % REVIEWS.length]));
+
+                var pos      = MOB_DIRS[ri] === 1 ? -CYCLE_W : 0;
+                var lastTime = null;
+                var running  = false;
+                rowEl.style.transform = 'translateX(' + pos + 'px)';
 
                 function tick(now) {
                     if (!running) return;
                     if (lastTime === null) lastTime = now;
                     var dt = Math.min(now - lastTime, 50);
                     lastTime = now;
-                    offset += MOB_SPEEDS[ri] * dt / 1000;
 
-                    var first = rowEl.firstElementChild;
-                    if (first && offset >= first.offsetWidth + MOB_GAP) {
-                        offset -= first.offsetWidth + MOB_GAP;
-                        rowEl.removeChild(first);
-                        rowEl.appendChild(makeMobCard(next()));
-                    }
-                    rowEl.style.transform = 'translateX(-' + offset + 'px)';
+                    pos += MOB_DIRS[ri] * MOB_SPEEDS[ri] * dt / 1000;
+                    if (MOB_DIRS[ri] === -1 && pos <= -CYCLE_W) pos += CYCLE_W;
+                    if (MOB_DIRS[ri] ===  1 && pos >= 0)        pos -= CYCLE_W;
+
+                    rowEl.style.transform = 'translateX(' + pos + 'px)';
                     requestAnimationFrame(tick);
                 }
-
-                requestAnimationFrame(function() {
-                    var first = rowEl.firstElementChild;
-                    while (first && offset >= first.offsetWidth + MOB_GAP) {
-                        offset -= first.offsetWidth + MOB_GAP;
-                        rowEl.removeChild(first);
-                        rowEl.appendChild(makeMobCard(next()));
-                        first = rowEl.firstElementChild;
-                    }
-                    rowEl.style.transform = 'translateX(-' + offset + 'px)';
-                });
 
                 new IntersectionObserver(function(entries) {
                     var vis = entries[0].isIntersecting;
@@ -3492,11 +3482,12 @@ html { overflow-x: hidden; }
     /* gl-intro */
     .gl-intro { margin: 0 !important; border-radius: 0 0 28px 28px !important; }
 
-    /* Hero video — уменьшаем высоту */
+    /* Hero video — почти полный экран, отступ снизу как по бокам */
     .gl-intro > div:first-child {
-        height: 56vh !important;
-        max-height: 460px !important;
-        min-height: 200px !important;
+        height: 96vh !important;
+        height: calc(100svh - 16px) !important;
+        max-height: none !important;
+        min-height: 300px !important;
     }
 
     /* Планка со статистикой */
@@ -3528,7 +3519,7 @@ html { overflow-x: hidden; }
         display: flex !important;
         width: 100% !important;
         justify-content: center !important;
-        align-items: flex-start !important;
+        align-items: center !important;
         flex-direction: column !important;
         overflow: hidden !important;
         padding-bottom: 16px !important;
@@ -3539,7 +3530,7 @@ html { overflow-x: hidden; }
         margin-bottom: -100px !important;
     }
     .gl-carousel-nav {
-        margin-top: 80px !important;
+        margin-top: 200px !important;
         align-self: center !important;
     }
 
