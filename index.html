@@ -1961,6 +1961,27 @@
     display: flex;
     gap: 14px;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+.p6-mini::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        108deg,
+        transparent 25%,
+        rgba(255,255,255,0.18) 50%,
+        transparent 75%
+    );
+    transform: translateX(-130%);
+    pointer-events: none;
+}
+.p6-mini:hover::after {
+    animation: p6-shine 0.6s ease forwards;
+}
+@keyframes p6-shine {
+    to { transform: translateX(130%); }
 }
 .p6-thumb {
     width: 100px; height: 100px;
@@ -2041,15 +2062,7 @@
   z-index: 1;
   -webkit-font-smoothing: antialiased;
 }
-
-/* Header */
-.hiw-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 40px;
-}
+.hiw-head { margin-bottom: 40px; }
 .hiw-title {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -2059,33 +2072,22 @@
   margin: 0;
   color: #14140f;
 }
-.hiw-controls { display: flex; gap: 10px; align-items: center; }
-.hiw-btn {
-  width: 56px; height: 56px;
-  border-radius: 999px;
-  border: 1px solid #d6d4ca;
-  background: transparent;
-  color: #14140f;
-  cursor: pointer;
-  display: grid; place-items: center;
-  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-  flex-shrink: 0;
-}
-.hiw-btn:hover { background: #14140f; color: #ecebe5; border-color: #14140f; }
-.hiw-btn:active { transform: scale(0.96); }
-.hiw-btn[disabled] { opacity: 0.35; cursor: not-allowed; background: transparent; color: #14140f; border-color: #d6d4ca; }
-.hiw-btn svg { width: 20px; height: 20px; }
 
-/* Layout */
+/* Stage: left rail + list */
 .hiw-stage {
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 20px 1fr;
   gap: 28px;
   align-items: stretch;
 }
+.hiw-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Left full-height rail */
 .hiw-rail {
-  position: relative;
-  height: 460px;
   display: flex;
   justify-content: center;
 }
@@ -2102,63 +2104,36 @@
   height: 0%;
   background: #22c55e;
   border-radius: 999px;
-  transition: height 0.18s linear;
-}
-.hiw-chips {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  pointer-events: none;
-}
-.hiw-viewport {
-  height: 460px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-snap-type: y mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scroll-behavior: smooth;
-  border-radius: 28px;
-  mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
-}
-.hiw-viewport::-webkit-scrollbar { display: none; }
-.hiw-track {
-  display: grid;
-  gap: 20px;
-  padding: 12px 4px;
+  transition: height 0.12s linear;
 }
 
 /* Cards */
 .hiw-step {
-  scroll-snap-align: start;
   background: #f4f3ee;
   border-radius: 24px;
   padding: 30px 36px;
   width: 100%;
-  min-height: 200px;
   display: grid;
   grid-template-columns: 120px 1fr auto;
   align-items: center;
   gap: 32px;
-  border: 1px solid rgba(20,20,15,0.04);
-  transition: background 0.45s ease, box-shadow 0.45s ease;
+  border: 1px solid rgba(20,20,15,0.06);
+  opacity: 0.35;
+  transition: background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 .hiw-step.is-active {
   background: #fffefa;
   box-shadow: 0 18px 44px -28px rgba(20,20,15,0.28);
+  opacity: 1;
 }
 .hiw-step-num {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 64px;
   line-height: 1;
-  color: #6a6a60;
+  color: #b8b6ae;
   letter-spacing: -0.03em;
-  transition: color 0.4s ease;
+  transition: color 0.2s ease;
 }
 .hiw-step.is-active .hiw-step-num { color: #14140f; }
 .hiw-step-body { max-width: 720px; }
@@ -2191,9 +2166,9 @@
   border-radius: 999px;
   border: 1px solid #d6d4ca;
   display: grid; place-items: center;
-  color: #14140f;
-  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+  color: #b8b6ae;
   flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .hiw-step.is-active .hiw-step-icon {
   background: #22c55e;
@@ -2202,140 +2177,94 @@
 }
 .hiw-step-icon svg { width: 22px; height: 22px; }
 
-.hiw-chip {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  min-width: 56px;
-  height: 32px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid #d6d4ca;
-  background: #ecebe5;
-  color: #6a6a60;
-  cursor: pointer;
-  display: grid; place-items: center;
-  pointer-events: auto;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.18s ease;
-}
-.hiw-chip:hover { color: #14140f; border-color: #14140f; }
-.hiw-chip.is-active {
-  background: #22c55e;
-  color: #fff;
-  border-color: #22c55e;
-  transform: scale(1.04);
-}
-
-
 @media (max-width: 900px) {
   .flow-section { padding: 56px 24px 80px !important; }
-  .hiw-stage { grid-template-columns: 64px 1fr; gap: 16px; }
+  .hiw-stage { grid-template-columns: 14px 1fr; gap: 16px; }
   .hiw-step {
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 24px;
-    min-height: 180px;
   }
   .hiw-step-num { font-size: 44px; }
-  .hiw-step h3 { font-size: 28px; }
+  .hiw-step h3 { font-size: 22px; }
   .hiw-step-icon { justify-self: flex-end; }
-  .hiw-viewport, .hiw-rail { height: 420px; }
-  .hiw-chip { min-width: 44px; padding: 0 8px; font-size: 11px; height: 28px; }
 }
 </style>
 
-<div class="flow-section" id="flowSection">
+<div class="flow-section">
   <header class="hiw-head">
     <h2 class="hiw-title">Всё для комфортного сотрудничества.</h2>
-    <div class="hiw-controls">
-      <button class="hiw-btn" data-dir="prev" aria-label="Предыдущий шаг">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" transform="rotate(180 12 12)"/></svg>
-      </button>
-      <button class="hiw-btn" data-dir="next" aria-label="Следующий шаг">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-    </div>
   </header>
 
   <div class="hiw-stage">
-    <div class="hiw-rail" aria-hidden="false">
+    <div class="hiw-rail">
       <div class="hiw-progress">
         <div class="hiw-progress-fill" id="hiwFill"></div>
-        <div class="hiw-chips" role="tablist" aria-label="Перейти к шагу">
-          <button class="hiw-chip is-active" data-idx="0" role="tab">01</button>
-          <button class="hiw-chip" data-idx="1" role="tab">02</button>
-          <button class="hiw-chip" data-idx="2" role="tab">03</button>
-          <button class="hiw-chip" data-idx="3" role="tab">04</button>
-          <button class="hiw-chip" data-idx="4" role="tab">05</button>
-        </div>
       </div>
     </div>
 
-    <div class="hiw-viewport" id="hiwViewport">
-      <div class="hiw-track" id="hiwTrack">
+    <div class="hiw-list">
 
-        <article class="hiw-step is-active">
-          <div class="hiw-step-num">01</div>
-          <div class="hiw-step-body">
-            <div class="hiw-step-tag">Заявка</div>
-            <h3>Оставьте запрос удобным способом</h3>
-            <p>Напишите на сайте, позвоните или напишите в мессенджер. Менеджер свяжется в течение 15 минут и уточнит детали вашего проекта.</p>
-          </div>
-          <div class="hiw-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-        </article>
+      <article class="hiw-step">
+        <div class="hiw-step-num">01</div>
+        <div class="hiw-step-body">
+          <div class="hiw-step-tag">Заявка</div>
+          <h3>Оставьте запрос удобным способом</h3>
+          <p>Напишите на сайте, позвоните или напишите в мессенджер. Менеджер свяжется в течение 15 минут и уточнит детали вашего проекта.</p>
+        </div>
+        <div class="hiw-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+      </article>
 
-        <article class="hiw-step">
-          <div class="hiw-step-num">02</div>
-          <div class="hiw-step-body">
-            <div class="hiw-step-tag">Расчёт</div>
-            <h3>Бесплатная смета за 1 рабочий день</h3>
-            <p>Рассчитываем стоимость под ваш запрос — материал, обработка, сроки. Цена фиксируется до старта: никаких скрытых наценок в процессе.</p>
-          </div>
-          <div class="hiw-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
-          </div>
-        </article>
+      <article class="hiw-step">
+        <div class="hiw-step-num">02</div>
+        <div class="hiw-step-body">
+          <div class="hiw-step-tag">Расчёт</div>
+          <h3>Бесплатная смета за 1 рабочий день</h3>
+          <p>Рассчитываем стоимость под ваш запрос — материал, обработка, сроки. Цена фиксируется до старта: никаких скрытых наценок в процессе.</p>
+        </div>
+        <div class="hiw-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+        </div>
+      </article>
 
-        <article class="hiw-step">
-          <div class="hiw-step-num">03</div>
-          <div class="hiw-step-body">
-            <div class="hiw-step-tag">Договор</div>
-            <h3>Фиксация условий и предоплата 50%</h3>
-            <p>Подписываем договор с чёткими сроками и полной спецификацией изделий. Производство запускается сразу после подтверждения.</p>
-          </div>
-          <div class="hiw-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </div>
-        </article>
+      <article class="hiw-step">
+        <div class="hiw-step-num">03</div>
+        <div class="hiw-step-body">
+          <div class="hiw-step-tag">Договор</div>
+          <h3>Фиксация условий и предоплата 50%</h3>
+          <p>Подписываем договор с чёткими сроками и полной спецификацией изделий. Производство запускается сразу после подтверждения.</p>
+        </div>
+        <div class="hiw-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+      </article>
 
-        <article class="hiw-step">
-          <div class="hiw-step-num">04</div>
-          <div class="hiw-step-body">
-            <div class="hiw-step-tag">Производство</div>
-            <h3>Точное изготовление с контролем качества</h3>
-            <p>Резка, шлифовка, нанесение покрытий — каждый этап проходит контроль. Присылаем фото готового изделия до отгрузки.</p>
-          </div>
-          <div class="hiw-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 1.41 14.14M4.93 4.93A10 10 0 0 0 3.52 19.07"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
-          </div>
-        </article>
+      <article class="hiw-step">
+        <div class="hiw-step-num">04</div>
+        <div class="hiw-step-body">
+          <div class="hiw-step-tag">Производство</div>
+          <h3>Точное изготовление с контролем качества</h3>
+          <p>Резка, шлифовка, нанесение покрытий — каждый этап проходит контроль. Присылаем фото готового изделия до отгрузки.</p>
+        </div>
+        <div class="hiw-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 1.41 14.14M4.93 4.93A10 10 0 0 0 3.52 19.07"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+        </div>
+      </article>
 
-        <article class="hiw-step">
-          <div class="hiw-step-num">05</div>
-          <div class="hiw-step-body">
-            <div class="hiw-step-tag">Отгрузка</div>
-            <h3>Доставка или самовывоз</h3>
-            <p>Упаковываем с защитой от повреждений. Доставляем по Москве и МО, отправляем в регионы через транспортные компании.</p>
-          </div>
-          <div class="hiw-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-          </div>
-        </article>
+      <article class="hiw-step">
+        <div class="hiw-step-num">05</div>
+        <div class="hiw-step-body">
+          <div class="hiw-step-tag">Отгрузка</div>
+          <h3>Доставка или самовывоз</h3>
+          <p>Упаковываем с защитой от повреждений. Доставляем по Москве и МО, отправляем в регионы через транспортные компании.</p>
+        </div>
+        <div class="hiw-step-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        </div>
+      </article>
 
-      </div>
     </div>
   </div>
 
@@ -2343,67 +2272,32 @@
 
 <script>
 (function () {
-  const section  = document.getElementById('flowSection');
-  const viewport = document.getElementById('hiwViewport');
-  const track    = document.getElementById('hiwTrack');
-  const fill     = document.getElementById('hiwFill');
-  const chips    = Array.from(section.querySelectorAll('.hiw-chip'));
-  const steps    = Array.from(track.querySelectorAll('.hiw-step'));
-  const prevBtn  = section.querySelector('[data-dir="prev"]');
-  const nextBtn  = section.querySelector('[data-dir="next"]');
-
-  function getStepHeight() {
-    if (steps.length < 2) return steps[0].getBoundingClientRect().height;
-    return steps[1].getBoundingClientRect().top - steps[0].getBoundingClientRect().top;
-  }
+  const steps   = Array.from(document.querySelectorAll('.hiw-step'));
+  const fill    = document.getElementById('hiwFill');
+  const section = document.querySelector('.flow-section');
+  let lastY     = window.scrollY;
 
   function update() {
-    const max   = viewport.scrollHeight - viewport.clientHeight;
-    const y     = viewport.scrollTop;
-    const ratio = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
-    fill.style.height = (ratio * 100) + '%';
+    const vh       = window.innerHeight;
+    const y        = window.scrollY;
+    const goingDown = y >= lastY;
+    lastY = y;
 
-    const probe = viewport.getBoundingClientRect().top + 40;
-    let activeIdx = 0, bestDist = Infinity;
-    steps.forEach((s, i) => {
-      const d = Math.abs(s.getBoundingClientRect().top - probe);
-      if (d < bestDist) { bestDist = d; activeIdx = i; }
+    steps.forEach(step => {
+      const r = step.getBoundingClientRect();
+      const inView = goingDown
+        ? r.top > vh * -0.15 && r.top < vh * 0.58   /* вниз: гасим ушедшие наверх */
+        : r.top < vh * 0.58;                          /* вверх: не гасим ушедшие наверх */
+      step.classList.toggle('is-active', inView);
     });
-    if (max > 0 && (max - y) < 4) activeIdx = steps.length - 1;
-    if (y < 4) activeIdx = 0;
 
-    steps.forEach((s, i) => s.classList.toggle('is-active', i === activeIdx));
-    chips.forEach((c, i) => c.classList.toggle('is-active', i === activeIdx));
-    prevBtn.disabled = y <= 1;
-    nextBtn.disabled = y >= max - 1;
+    const top    = section.getBoundingClientRect().top;
+    const height = section.offsetHeight - vh;
+    const ratio  = height > 0 ? Math.min(1, Math.max(0, -top / height)) : 0;
+    fill.style.height = (ratio * 100) + '%';
   }
 
-  function scrollToIdx(i) {
-    viewport.scrollTo({ top: i * getStepHeight(), behavior: 'smooth' });
-  }
-
-  viewport.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
-  chips.forEach(c => c.addEventListener('click', () => scrollToIdx(parseInt(c.dataset.idx, 10))));
-  prevBtn.addEventListener('click', () => viewport.scrollBy({ top: -getStepHeight(), behavior: 'smooth' }));
-  nextBtn.addEventListener('click', () => viewport.scrollBy({ top:  getStepHeight(), behavior: 'smooth' }));
-
-  let isDown = false, startY = 0, startScroll = 0;
-  viewport.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('button')) return;
-    isDown = true; startY = e.clientY; startScroll = viewport.scrollTop;
-    viewport.setPointerCapture(e.pointerId);
-    viewport.style.scrollBehavior = 'auto';
-  });
-  viewport.addEventListener('pointermove', (e) => {
-    if (!isDown) return;
-    viewport.scrollTop = startScroll - (e.clientY - startY);
-  });
-  function endDrag() { if (!isDown) return; isDown = false; viewport.style.scrollBehavior = 'smooth'; }
-  viewport.addEventListener('pointerup', endDrag);
-  viewport.addEventListener('pointercancel', endDrag);
-  viewport.addEventListener('pointerleave', endDrag);
-
-  window.addEventListener('resize', update);
+  window.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
   update();
 })();
 </script>
