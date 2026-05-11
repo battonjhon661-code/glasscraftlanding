@@ -1870,14 +1870,14 @@
             </div>
             <div class="gl-swipe-cards">
                 <div class="gl-swipe-track">
-                    <div class="gl-swipe-card"><img src="assets/spin/card1.jpg" alt="Зеркало в индивидуальной раме"></div>
-                    <div class="gl-swipe-card"><img src="assets/spin/card2.jpg" alt="Комбинированное еврозеркало"></div>
-                    <div class="gl-swipe-card"><img src="assets/spin/card3.jpg" alt="Зеркало в раме"></div>
-                    <div class="gl-swipe-card"><img src="assets/spin/card4.jpg" alt="Зеркальное панно"></div>
-                    <div class="gl-swipe-card"><img src="assets/spin/card5.jpg" alt="Ограждение парилки"></div>
-                    <div class="gl-swipe-card"><img src="assets/spin/card6.jpg" alt="Зеркальное панно"></div>
-                    <div class="gl-swipe-card"><img src="assets/spin/card7.jpg" alt="Зеркало с подсветкой"></div>
-                    <div class="gl-swipe-card"><img src="assets/spin/card8.jpg" alt="Душевая с подсветкой"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card1.jpg" alt="Зеркало в индивидуальной раме"><span class="gl-swipe-rating">★ 5.0</span><span class="gl-swipe-title">Зеркало в индивидуальной раме</span></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card2.jpg" alt="Комбинированное еврозеркало"><span class="gl-swipe-rating">★ 5.0</span><span class="gl-swipe-title">Комбинированное еврозеркало</span></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card3.jpg" alt="Зеркало в раме"><span class="gl-swipe-rating">★ 4.9</span><span class="gl-swipe-title">Зеркало в раме</span></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card4.jpg" alt="Зеркальное панно"><span class="gl-swipe-rating">★ 4.9</span><span class="gl-swipe-title">Зеркальное панно</span></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card5.jpg" alt="Ограждение парилки"><span class="gl-swipe-rating">★ 4.9</span><span class="gl-swipe-title">Ограждение парилки</span></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card6.jpg" alt="Зеркальное панно"><span class="gl-swipe-rating">★ 5.0</span><span class="gl-swipe-title">Зеркальное панно</span></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card7.jpg" alt="Зеркало с подсветкой"><span class="gl-swipe-rating">★ 4.9</span><span class="gl-swipe-title">Зеркало с подсветкой</span></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card8.jpg" alt="Душевая с подсветкой"><span class="gl-swipe-rating">★ 5.0</span><span class="gl-swipe-title">Душевая с подсветкой</span></div>
                 </div>
             </div>
         </div>
@@ -3623,6 +3623,7 @@ html { overflow-x: hidden; }
     .gl-text-icons-wrap { padding: 0 !important; gap: 0 !important; }
     .gl-text-icons-wrap .icon-card { display: none !important; }
     .gl-intro-right { display: none !important; }
+    #gl-cursor-badge { display: none !important; }
     .gl-swipe-cards {
         display: block !important;
         width: 100%;
@@ -3644,12 +3645,40 @@ html { overflow-x: hidden; }
         border-radius: 20px;
         overflow: hidden;
         aspect-ratio: 3/4;
+        position: relative;
+        pointer-events: none;
     }
     .gl-swipe-card img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
+    }
+    .gl-swipe-rating {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255,255,255,0.88);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 4px 9px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #0C0C0B;
+        letter-spacing: -0.01em;
+    }
+    .gl-swipe-title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 36px 12px 14px;
+        background: linear-gradient(to top, rgba(0,0,0,0.58) 0%, transparent 100%);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.3;
     }
 
     /* Flow section */
