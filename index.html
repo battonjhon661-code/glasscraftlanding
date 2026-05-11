@@ -1559,8 +1559,9 @@
 
             /* 3. Карусель (кольцо) — центрирование, отступы, размер сцены */
             .gl-intro { overflow-x: hidden; overflow-y: visible; }
-            .hero-stats-bar { padding:0 16px; gap:8px; margin-top:-56px; }
-            .hero-stat-card { padding:14px 12px; }
+            .hero-stats-bar { padding:0; gap:0; margin-top:-56px; background:#fff; border-radius:16px; box-shadow:0 8px 32px rgba(12,12,11,.10),0 2px 8px rgba(12,12,11,.06); overflow:hidden; }
+            .hero-stat-card { padding:14px 8px; background:transparent !important; box-shadow:none !important; border-radius:0 !important; border-right:1px solid rgba(12,12,11,.10); flex:1 !important; }
+            .hero-stat-card:last-child { border-right:none !important; }
             .hero-stat-num { font-size:18px; }
             .gl-intro-left {
                 flex-direction: column !important;
@@ -3602,12 +3603,14 @@ html { overflow-x: hidden; }
         padding-bottom: 16px !important;
     }
     .gl-scene {
-        transform: scale(0.58) !important;
+        transform: scale(0.50) !important;
         transform-origin: top center !important;
-        margin-bottom: -100px !important;
+        margin-top: 20px !important;
+        margin-bottom: -120px !important;
+        will-change: transform;
     }
     .gl-carousel-nav {
-        margin-top: 200px !important;
+        margin-top: 140px !important;
         align-self: center !important;
     }
 
