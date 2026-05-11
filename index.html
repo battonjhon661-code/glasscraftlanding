@@ -1582,9 +1582,7 @@
                 flex-direction: column !important;
                 align-items: center !important;
             }
-            .gl-scene { width: 320px; }
-            /* Опускаем бар с точками ниже кольца */
-            .gl-carousel-nav { margin-top: 200px !important; }
+            .gl-scene { width: 320px; height: 180px; }
 
             /* Заголовок "Зеркала и стекла без ограничений." — одна строка */
             .gl-intro-title {
@@ -1888,8 +1886,10 @@
     var curDot = 0;
     var N      = cards.length;
     var STEP   = 360 / N;
-    var Rx     = window.innerWidth <= 768 ? 110 : 260;
-    var Rz     = 480;
+    var isMobile = window.innerWidth <= 768;
+    var Rx     = isMobile ? 80 : 260;
+    var Rz     = isMobile ? 250 : 480;
+    var CARD_SCALE = isMobile ? 0.18 : 0.27;
     var TILT   = -7;
 
     ring.style.transform = 'rotateX(' + TILT + 'deg)';
@@ -1914,7 +1914,7 @@
             c.style.setProperty('--dark', dark.toFixed(3));
             c.style.zIndex   = Math.round((1 - t) * 10);
             c.style.transform =
-                'translateX(' + cx.toFixed(1) + 'px) translateZ(' + cz.toFixed(1) + 'px)' + counterRot + ' scale(0.27)';
+                'translateX(' + cx.toFixed(1) + 'px) translateZ(' + cz.toFixed(1) + 'px)' + counterRot + ' scale(' + CARD_SCALE + ')';
         });
         var fi = ((Math.round(-offset / STEP)) % N + N) % N;
         var rN = (fi + 1) % N;
@@ -3616,17 +3616,15 @@ html { overflow-x: hidden; }
         justify-content: center !important;
         align-items: center !important;
         flex-direction: column !important;
-        overflow: hidden !important;
         padding-bottom: 16px !important;
     }
     .gl-scene {
-        transform: scale(0.58) !important;
-        transform-origin: top center !important;
+        width: 320px !important;
+        height: 180px !important;
         margin-top: 20px !important;
-        margin-bottom: -100px !important;
     }
     .gl-carousel-nav {
-        margin-top: 110px !important;
+        margin-top: 24px !important;
         align-self: center !important;
     }
 
