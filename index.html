@@ -1582,7 +1582,6 @@
                 flex-direction: column !important;
                 align-items: center !important;
             }
-            .gl-scene { width: 320px; height: 180px; }
 
             /* Заголовок "Зеркала и стекла без ограничений." — одна строка */
             .gl-intro-title {
@@ -1796,6 +1795,7 @@
 #gl-cursor-badge .gcb-sep { opacity:.38; }
 #gl-cursor-badge .gcb-name { opacity:.78; }
 .gl-car-card.is-neighbor { cursor: pointer; }
+.gl-swipe-cards { display: none; }
 </style>
 
 <div class="gl-intro">
@@ -1866,6 +1866,18 @@
                         <span class="gl-dot"><span class="gl-dot-fill"></span></span>
                     </div>
                     <button class="gl-cnav-btn" id="gl-next">&#8594;</button>
+                </div>
+            </div>
+            <div class="gl-swipe-cards">
+                <div class="gl-swipe-track">
+                    <div class="gl-swipe-card"><img src="assets/spin/card1.jpg" alt="Зеркало в индивидуальной раме"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card2.jpg" alt="Комбинированное еврозеркало"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card3.jpg" alt="Зеркало в раме"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card4.jpg" alt="Зеркальное панно"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card5.jpg" alt="Ограждение парилки"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card6.jpg" alt="Зеркальное панно"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card7.jpg" alt="Зеркало с подсветкой"></div>
+                    <div class="gl-swipe-card"><img src="assets/spin/card8.jpg" alt="Душевая с подсветкой"></div>
                 </div>
             </div>
         </div>
@@ -3610,22 +3622,34 @@ html { overflow-x: hidden; }
     .gl-intro-photo { min-height: 220px !important; }
     .gl-text-icons-wrap { padding: 0 !important; gap: 0 !important; }
     .gl-text-icons-wrap .icon-card { display: none !important; }
-    .gl-intro-right {
-        display: flex !important;
-        width: 100% !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex-direction: column !important;
-        padding-bottom: 16px !important;
+    .gl-intro-right { display: none !important; }
+    .gl-swipe-cards {
+        display: block !important;
+        width: 100%;
+        overflow: hidden;
     }
-    .gl-scene {
-        width: 320px !important;
-        height: 180px !important;
-        margin-top: 20px !important;
+    .gl-swipe-track {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px;
+        padding: 16px 20px 20px;
+        scrollbar-width: none;
     }
-    .gl-carousel-nav {
-        margin-top: 24px !important;
-        align-self: center !important;
+    .gl-swipe-track::-webkit-scrollbar { display: none; }
+    .gl-swipe-card {
+        flex: 0 0 72vw;
+        scroll-snap-align: center;
+        border-radius: 20px;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+    }
+    .gl-swipe-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
 
     /* Flow section */
