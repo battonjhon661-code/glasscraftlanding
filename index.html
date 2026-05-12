@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400;1,600&family=EB+Garamond:ital,wght@1,400&family=Instrument+Serif:ital@0;1&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1800,8 +1801,9 @@
 
 <div class="gl-intro">
     <div style="position:relative;height:100vh;overflow:hidden;background:#ffffff;">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://res.cloudinary.com/deljmywba/video/upload/q_auto,f_auto,w_1920,c_scale/v1778322447/Main_iukszc.mp4" type="video/mp4">
+        <video class="hero-video" autoplay muted playsinline id="hero-video-player">
+            <source src="https://res.cloudinary.com/deljmywba/video/upload/sp_auto/v1778595901/lv_0_20260512165516_d0jzcn.m3u8" type="application/x-mpegURL">
+            <source src="https://res.cloudinary.com/deljmywba/video/upload/v1778595901/lv_0_20260512165516_d0jzcn.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-bottom">
@@ -3768,5 +3770,36 @@ html { overflow-x: hidden; }
     .cap-card { box-shadow: 0 4px 24px rgba(0,0,0,.18) !important; }
 }
 </style>
+<script>
+(function () {
+    var video = document.getElementById('hero-video-player');
+    if (!video) return;
+    var hlsUrl = 'https://res.cloudinary.com/deljmywba/video/upload/sp_auto/v1778595901/lv_0_20260512165516_d0jzcn.m3u8';
+    var mp4Url = 'https://res.cloudinary.com/deljmywba/video/upload/v1778595901/lv_0_20260512165516_d0jzcn.mp4';
+
+    function loopOnEnd() {
+        video.addEventListener('ended', function () {
+            video.currentTime = 0;
+            video.play();
+        });
+    }
+
+    if (typeof Hls !== 'undefined' && Hls.isSupported()) {
+        var hls = new Hls({ startLevel: -1, autoStartLoad: true });
+        hls.loadSource(hlsUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () { video.play(); });
+        loopOnEnd();
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = hlsUrl;
+        video.loop = true;
+        video.play();
+    } else {
+        video.src = mp4Url;
+        video.loop = true;
+        video.play();
+    }
+}());
+</script>
 </body>
 </html>
